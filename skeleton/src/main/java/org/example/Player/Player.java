@@ -1,4 +1,7 @@
-package org.example;
+package org.example.Player;
+
+import org.example.Map.Lane;
+import org.example.Map.Node;
 
 import java.util.ArrayList;
 import java.util.List;

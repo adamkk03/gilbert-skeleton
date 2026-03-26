@@ -1,7 +1,11 @@
-package org.example;
+package org.example.Vehicle;
 
 
-abstract class Vehicle {
+import org.example.Map.Lane;
+import org.example.Map.Map;
+import org.example.Map.Node;
+
+public abstract class Vehicle {
     protected Lane currentLane;
     protected boolean isStuck;
     protected Node dest1;

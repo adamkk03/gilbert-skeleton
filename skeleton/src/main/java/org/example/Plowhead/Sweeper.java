@@ -1,4 +1,7 @@
-package org.example;
+package org.example.Plowhead;
+
+import org.example.Inventory;
+import org.example.Map.Lane;
 
 class Sweeper extends PlowHead {
     @Override

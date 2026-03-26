@@ -1,9 +1,14 @@
-package org.example;
+package org.example.Map;
+
+import org.example.Inventory;
+import org.example.Plowhead.PlowHead;
+import org.example.Surface.Surface;
+import org.example.Vehicle.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class Lane {
+public class Lane {
     private int snowThickness;
     private int iceThickness;
     private List<Vehicle> vehicles = new ArrayList<>();

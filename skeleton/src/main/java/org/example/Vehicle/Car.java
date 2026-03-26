@@ -1,4 +1,6 @@
-package org.example;
+package org.example.Vehicle;
+
+import org.example.Map.Map;
 
 class Car extends Vehicle {
     @Override
