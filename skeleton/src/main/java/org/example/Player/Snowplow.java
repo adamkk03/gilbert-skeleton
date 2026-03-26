@@ -1,4 +1,10 @@
-package org.example;
+package org.example.Player;
+
+import org.example.Inventory;
+import org.example.Map.Lane;
+import org.example.Map.Node;
+import org.example.Plowhead.PlowHead;
+import org.example.Resource.Resource;
 
 class Snowplow {
     private Inventory inventory;

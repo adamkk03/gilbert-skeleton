@@ -1,6 +1,6 @@
-package org.example;
+package org.example.Resource;
 
-abstract class Resource {
+public abstract class Resource {
     protected int amount;
     protected int price;
 

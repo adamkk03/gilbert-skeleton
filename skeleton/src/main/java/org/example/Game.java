@@ -1,5 +1,8 @@
 package org.example;
 
+import org.example.Map.Map;
+import org.example.Player.Player;
+
 import java.util.ArrayList;
 import java.util.List;
 

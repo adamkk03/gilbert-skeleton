@@ -1,9 +1,11 @@
-package org.example;
+package org.example.Map;
+
+import org.example.Snowplow;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class Node {
+public class Node {
     private List<Road> connectedRoads = new ArrayList<>();
     private List<Snowplow> restingSnowplows = new ArrayList<>();
 

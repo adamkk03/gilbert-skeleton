@@ -1,3 +1,3 @@
-package org.example;
+package org.example.Resource;
 
 class Salt extends Resource { }
