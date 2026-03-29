@@ -110,6 +110,7 @@ public class Main {
         Lane l2 = new Lane();
         l2.setSurface(new SnowySurface());
         sp.move(node, l2);
+        Logger.reset();
         System.out.println("--- Teszt vége ---\n");
     }
 
@@ -121,6 +122,7 @@ public class Main {
         Lane l2 = new Lane();
         l2.setSurface(new SnowySurface());
         sp.move(node, l2);
+        Logger.reset();
         System.out.println("--- Teszt vége ---\n");
     }
 
@@ -132,6 +134,7 @@ public class Main {
         Lane l3 = new Lane();
         l3.setSurface(new IcySurface());
         sp.move(node, l3);
+        Logger.reset();
         System.out.println("--- Teszt vége ---\n");
     }
 
@@ -143,6 +146,7 @@ public class Main {
         Lane l2 = new Lane();
         l2.setSurface(new SnowySurface());
         sp.move(node, l2);
+        Logger.reset();
         System.out.println("--- Teszt vége ---\n");
     }
 
@@ -154,6 +158,7 @@ public class Main {
         Lane l2 = new Lane();
         l2.setSurface(new SnowySurface());
         sp.move(node, l2);
+        Logger.reset();
         System.out.println("--- Teszt vége ---\n");
     }
 
@@ -164,6 +169,7 @@ public class Main {
         Lane targetLane = map.getNextLane(null, null);
         targetLane.setSurface(new SnowySurface());
         targetLane.acceptVehicle(car);
+        Logger.reset();
         System.out.println("--- Teszt vége ---\n");
     }
 
@@ -173,6 +179,7 @@ public class Main {
         Lane targetLane = new Lane();
         targetLane.setSurface(new SnowySurface());
         targetLane.acceptVehicle(car);
+        Logger.reset();
         System.out.println("--- Teszt vége ---\n");
     }
 
@@ -182,6 +189,7 @@ public class Main {
         Lane targetLane = new Lane();
         targetLane.setSurface(new IcySurface());
         targetLane.acceptVehicle(car);
+        Logger.reset();
         System.out.println("--- Teszt vége ---\n");
     }
 
@@ -189,6 +197,7 @@ public class Main {
         System.out.println("\n--- 9. Havazás indítása ---");
         Map map = new Map();
         map.weatherTick();
+        Logger.reset();
         System.out.println("--- Teszt vége ---\n");
     }
 
@@ -196,6 +205,7 @@ public class Main {
         System.out.println("\n--- 10. Só elolvasztja a jeget indítása ---");
         Map map = new Map();
         map.weatherTick();
+        Logger.reset();
         System.out.println("--- Teszt vége ---\n");
     }
 
@@ -205,8 +215,9 @@ public class Main {
         Shop shop = new Shop();
         Snowplow sp = new Snowplow();
         Salt salt = new Salt();
-        player.addMoney(100);
+        // Itt nem töltjük be előre a pénzt, hanem a Questioner majd rákérdez
         shop.buyResource(player, sp, salt, 1);
+        Logger.reset();
         System.out.println("--- Teszt vége ---\n");
     }
 
@@ -217,6 +228,7 @@ public class Main {
         Lane lane = new Lane();
         lane.setSurface(new BlockedSurface());
         sp.move(node, lane);
+        Logger.reset();
         System.out.println("--- Teszt vége ---\n");
     }
 
@@ -224,6 +236,7 @@ public class Main {
         System.out.println("\n--- 13. Busz útvonalat választ indítása ---");
         Player player = new Player();
         player.moveBus();
+        Logger.reset();
         System.out.println("--- Teszt vége ---\n");
     }
 
@@ -234,6 +247,7 @@ public class Main {
         Node targetNode = new Node();
         Lane viaLane = new Lane();
         player.moveSnowplow(sp, targetNode, viaLane);
+        Logger.reset();
         System.out.println("--- Teszt vége ---\n");
     }
 }

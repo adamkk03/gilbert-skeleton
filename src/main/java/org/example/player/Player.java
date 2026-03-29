@@ -41,11 +41,7 @@ public class Player {
 
     public boolean spendMoney(int amount) {
         Logger.call("Player", "spendMoney(" + amount + ")");
-        // Szkeleton interaktivitás: Megkérdezzük a tesztelőt
-        boolean canSpend = Questioner.ask("Van a játékosnak elég pénze a tranzakcióhoz?");
-        if (canSpend) {
-            money -= amount;
-        }
+        boolean canSpend = Questioner.ask("Van a játékosnak elég pénze (" + amount + ") a tranzakcióhoz?");
         Logger.ret("boolean", String.valueOf(canSpend));
         return canSpend;
     }

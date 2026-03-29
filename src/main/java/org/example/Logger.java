@@ -1,36 +1,34 @@
 package org.example;
 
-import java.util.Scanner;
-
 public class Logger {
 
-    private static Scanner scanner = new Scanner(System.in);
+    private static int depth = 0;
 
-    public static void call(String className, String methodCall) {
-        System.out.println("-> " + className + ": " + methodCall);
+    private static String getIndent() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < depth; i++) {
+            sb.append("\t");
+        }
+        return sb.toString();
+    }
+
+    public static void call(String className, String methodName) {
+        System.out.println(getIndent() + "-> " + className + ": " + methodName);
+        depth++;
     }
 
     public static void ret(String type, String value) {
-        if (value == null || value.isEmpty()) {
-            System.out.println("<- " + type);
-        } else {
-            System.out.println("<- " + type + ": " + value);
-        }
+        depth--;
+        System.out.println(getIndent() + "<- " + type + ": " + value);
     }
 
     public static void retVoid() {
-        System.out.println("<- void");
+        depth--;
+        System.out.println(getIndent() + "<- void");
     }
 
-    public static boolean ask(String question) {
-        System.out.print("[?] " + question + " (I/N): ");
-        String answer = scanner.nextLine().trim().toUpperCase();
-
-        while (!answer.equals("I") && !answer.equals("N")) {
-            System.out.print("Kérlek 'I' vagy 'N' betűvel válaszolj! (I/N): ");
-            answer = scanner.nextLine().trim().toUpperCase();
-        }
-
-        return answer.equals("I");
+    // A tesztek végén érdemes meghívni, hogy a tabulátorok nullázódjanak
+    public static void reset() {
+        depth = 0;
     }
 }

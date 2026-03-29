@@ -1,6 +1,7 @@
 package org.example.vehicle;
 
 import org.example.Logger;
+import org.example.Questioner;
 import org.example.map.Lane;
 import org.example.map.Map;
 
@@ -18,7 +19,7 @@ public class Bus extends Vehicle {
             success = targetLane.acceptVehicle(this);
         }
 
-        boolean arrived = Logger.ask("A busz elérte a célállomást?");
+        boolean arrived = Questioner.ask("A busz elérte a célállomást?");
         if (arrived) {
             // Itt a valóságban a Player kapna pontot, amit a szkeletonban 
             // majd a hívó oldalról (pl. Player.moveBus()) kezelünk le.

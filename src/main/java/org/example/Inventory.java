@@ -28,14 +28,14 @@ public class Inventory {
     
     public boolean consumeSalt() {
         Logger.call("Inventory", "consumeSalt()");
-        boolean hasSalt = Logger.ask("Van még elegendő só a raktárban?");
+        boolean hasSalt = Questioner.ask("Van még elegendő só a raktárban?");
         Logger.ret("boolean", String.valueOf(hasSalt));
         return hasSalt;
     }
 
     public boolean consumeKerosene() {
         Logger.call("Inventory", "consumeKerosene()");
-        boolean hasKerosene = Logger.ask("Van még elegendő kerozin a raktárban?");
+        boolean hasKerosene = Questioner.ask("Van még elegendő kerozin a raktárban?");
         Logger.ret("boolean", String.valueOf(hasKerosene));
         return hasKerosene;
     }
