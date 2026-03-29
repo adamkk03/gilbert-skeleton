@@ -1,9 +1,11 @@
-package org.example.Plowhead;
+package org.example.plowhead;
 
 import org.example.Inventory;
-import org.example.Map.Lane;
+import org.example.map.Lane;
 
 class Salter extends PlowHead {
+
     @Override
-    public void operate(Lane l, Inventory inv) {}
+    public void operate(Lane l, Inventory inv) {
+    }
 }

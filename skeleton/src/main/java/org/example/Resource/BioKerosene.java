@@ -1,3 +1,4 @@
-package org.example.Resource;
+package org.example.resource;
 
-class BioKerosene extends Resource { }
+class BioKerosene extends Resource {
+}

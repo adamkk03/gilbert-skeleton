@@ -1,8 +1,9 @@
-package org.example.Plowhead;
+package org.example.plowhead;
 
 import org.example.Inventory;
-import org.example.Map.Lane;
+import org.example.map.Lane;
 
 public abstract class PlowHead {
+
     public abstract void operate(Lane l, Inventory inv);
 }

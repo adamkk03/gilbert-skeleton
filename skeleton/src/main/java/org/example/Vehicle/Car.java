@@ -1,8 +1,11 @@
-package org.example.Vehicle;
+package org.example.vehicle;
 
-import org.example.Map.Map;
+import org.example.map.Map;
 
 class Car extends Vehicle {
+
     @Override
-    public boolean move(Map map) { return true; }
+    public boolean move(Map map) {
+        return true;
+    }
 }
