@@ -3,6 +3,7 @@ package org.example.player;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.example.Logger;
 import org.example.map.Lane;
 import org.example.map.Node;
 import org.example.vehicle.Bus;
@@ -16,29 +17,58 @@ public class Player {
     private Bus bus;
 
     public void moveBus() {
+        Logger.call("Player", "moveBus()");
+        if (bus != null) {
+            bus.move(null);
+        }
+        Logger.retVoid();
     }
 
     public void moveSnowplow(Snowplow sp, Node target, Lane via) {
+        Logger.call("Player", "moveSnowplow(sp, target, via)");
+        if (sp != null) {
+            sp.move(target, via);
+        }
+        Logger.retVoid();
     }
 
     public void addSnowplow(Snowplow sp) {
+        Logger.call("Player", "addSnowplow(sp)");
+        snowplows.add(sp);
+        Logger.retVoid();
     }
 
     public boolean spendMoney(int amount) {
-        return false;
+        Logger.call("Player", "spendMoney(" + amount + ")");
+        boolean canSpend = money >= amount;
+        if (canSpend) {
+            money -= amount;
+        }
+        Logger.ret("boolean", String.valueOf(canSpend));
+        return canSpend;
     }
 
     public int getMoney() {
-        return 0;
+        Logger.call("Player", "getMoney()");
+        Logger.ret("int", String.valueOf(money));
+        return money;
     }
 
     public void addMoney(int amount) {
+        Logger.call("Player", "addMoney(" + amount + ")");
+        money += amount;
+        Logger.retVoid();
     }
 
     public int getScore() {
-        return 0;
+        Logger.call("Player", "getScore()");
+        Logger.ret("int", String.valueOf(score));
+        return score;
     }
 
     public void addScore(int amount) {
+        Logger.call("Player", "addScore(" + amount + ")");
+        score += amount;
+        Logger.retVoid();
     }
 }

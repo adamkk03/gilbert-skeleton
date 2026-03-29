@@ -1,25 +1,41 @@
 package org.example.player;
 
 import org.example.Inventory;
+import org.example.Logger;
 import org.example.map.Lane;
+import org.example.map.Map;
 import org.example.map.Node;
 import org.example.plowhead.PlowHead;
-import org.example.resource.Resource;
+import org.example.plowhead.Sweeper;
+import org.example.vehicle.Vehicle;
 
-public class Snowplow {
+public class Snowplow extends Vehicle {
 
-    private Inventory inventory;
-    private PlowHead activeHead;
-    private int remainingMoves;
-    private Node currentNode;
+    private PlowHead activeHead = new Sweeper();
+    private Inventory inventory = new Inventory();
 
-    public boolean move(Node targetNode, Lane vialane) {
+    public void changeHead(PlowHead head) {
+        Logger.call("Snowplow", "changeHead(head)");
+        this.activeHead = head;
+        Logger.retVoid();
+    }
+
+    public boolean move(Node targetNode, Lane viaLane) {
+        Logger.call("Snowplow", "move(targetNode, viaLane)");
+
+        boolean cleanSuccess = viaLane.clean(this.activeHead, this.inventory);
+
+        boolean moveSuccess = false;
+        if (cleanSuccess) {
+            moveSuccess = viaLane.acceptVehicle(this);
+        }
+
+        Logger.ret("boolean", String.valueOf(moveSuccess));
+        return moveSuccess;
+    }
+
+    @Override
+    public boolean move(Map map) {
         return false;
-    }
-
-    public void changeHead(PlowHead newHead) {
-    }
-
-    public void addResource(Resource type, int amount) {
     }
 }
