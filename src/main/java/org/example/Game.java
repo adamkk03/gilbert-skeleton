@@ -3,7 +3,6 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.example.Logger;
 import org.example.map.Map;
 import org.example.player.Player;
 

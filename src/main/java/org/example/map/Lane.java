@@ -1,7 +1,10 @@
 package org.example.map;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.example.Inventory;
 import org.example.Logger;
-import org.example.player.Inventory;
 import org.example.plowhead.PlowHead;
 import org.example.surface.CleanSurface;
 import org.example.surface.Surface;
@@ -12,9 +15,13 @@ public class Lane {
     private Surface surface = new CleanSurface();
     private boolean isSalted = false;
 
+    // Hiányzó attribútumok pótolva
+    private int snowThickness;
+    private int iceThickness;
+    private List<Vehicle> vehicles = new ArrayList<>();
+
     public boolean clean(PlowHead head, Inventory inv) {
         Logger.call("Lane", "clean(head, inv)");
-        // A takarítást a jelenlegi felszínre (Surface) delegáljuk
         boolean result = this.surface.clean(head, inv, this);
         Logger.ret("boolean", String.valueOf(result));
         return result;
@@ -22,7 +29,6 @@ public class Lane {
 
     public boolean acceptVehicle(Vehicle v) {
         Logger.call("Lane", "acceptVehicle(v)");
-        // A jármű ráhajtását a jelenlegi felszínre delegáljuk
         boolean result = this.surface.handleVehicle(v, this);
         Logger.ret("boolean", String.valueOf(result));
         return result;
@@ -43,6 +49,18 @@ public class Lane {
     public void setSalted(boolean salted) {
         Logger.call("Lane", "setSalted(" + salted + ")");
         this.isSalted = salted;
+        Logger.retVoid();
+    }
+
+    // Hiányzó metódusok pótolva
+    public void weatherTick() {
+        Logger.call("Lane", "weatherTick()");
+        Logger.retVoid();
+    }
+
+    public void propagateCrash() {
+        Logger.call("Lane", "propagateCrash()");
+        // Szkeletonban a belső iterációs logika imitálása
         Logger.retVoid();
     }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.example.Logger;
+import org.example.Questioner;
 import org.example.map.Lane;
 import org.example.map.Node;
 import org.example.vehicle.Bus;
@@ -40,7 +41,8 @@ public class Player {
 
     public boolean spendMoney(int amount) {
         Logger.call("Player", "spendMoney(" + amount + ")");
-        boolean canSpend = money >= amount;
+        // Szkeleton interaktivitás: Megkérdezzük a tesztelőt
+        boolean canSpend = Questioner.ask("Van a játékosnak elég pénze a tranzakcióhoz?");
         if (canSpend) {
             money -= amount;
         }

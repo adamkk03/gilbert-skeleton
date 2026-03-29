@@ -1,38 +1,38 @@
 package org.example.map;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.example.Logger;
+import org.example.vehicle.Vehicle;
 
 public class Map {
 
-    public void weatherTick() {
-        Logger.call("Map", "weatherTick()");
+    private List<Node> nodes = new ArrayList<>();
+    private List<Road> roads = new ArrayList<>();
+    private List<Vehicle> npcVehicles = new ArrayList<>();
 
-        // 9. SD: Havazás esetén a térkép értesíti a sávokat
-        boolean isSnowing = Logger.ask("Havazik éppen?");
-        if (isSnowing) {
-            Lane dummyLane = new Lane(); // Szimulálunk egy sávot
-            dummyLane.receiveSnow(1);
-        }
-
-        // 10. SD: Só elolvasztja a jeget
-        boolean isFreezing = Logger.ask("Fagypont alá csökkent a hőmérséklet?");
-        if (isFreezing) {
-            boolean wasSalted = Logger.ask("Volt besózott sáv a térképen?");
-            if (wasSalted) {
-                // A sózott sáv feloldódik
-                Logger.call("Lane (salted)", "setSurface(CleanSurface)");
-                Logger.retVoid();
-            }
-        }
-
+    public void buildMap() {
+        Logger.call("Map", "buildMap()");
         Logger.retVoid();
     }
 
-    public Lane getNextLane(Lane current, Node dest) {
-        Logger.call("Map", "getNextLane(current, dest)");
-        // A szkeletonban nem keresünk gráfban, csak visszaadunk egy új sávot
+    public void weatherTick() {
+        Logger.call("Map", "weatherTick()");
+        Logger.retVoid();
+    }
+
+    // EZ A METÓDUS HIÁNYZOTT
+    public void moveNPCs() {
+        Logger.call("Map", "moveNPCs()");
+        // Itt iterálna végig az npcVehicles listán
+        Logger.retVoid();
+    }
+
+    public Lane getNextLane(Lane current, Node destination) {
+        Logger.call("Map", "getNextLane(current, destination)");
         Lane nextLane = new Lane();
-        Logger.ret("Lane", "nextLane");
+        Logger.ret("Lane", "lane");
         return nextLane;
     }
 }

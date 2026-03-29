@@ -13,6 +13,9 @@ import org.example.plowhead.Salter;
 import org.example.plowhead.Sweeper;
 import org.example.plowhead.Thrower;
 import org.example.resource.Salt;
+import org.example.surface.BlockedSurface;
+import org.example.surface.IcySurface;
+import org.example.surface.SnowySurface;
 import org.example.vehicle.Car;
 
 public class Main {
@@ -105,6 +108,7 @@ public class Main {
         sp.changeHead(new Sweeper());
         Node node = new Node();
         Lane l2 = new Lane();
+        l2.setSurface(new SnowySurface());
         sp.move(node, l2);
         System.out.println("--- Teszt vége ---\n");
     }
@@ -115,6 +119,7 @@ public class Main {
         sp.changeHead(new Thrower());
         Node node = new Node();
         Lane l2 = new Lane();
+        l2.setSurface(new SnowySurface());
         sp.move(node, l2);
         System.out.println("--- Teszt vége ---\n");
     }
@@ -125,6 +130,7 @@ public class Main {
         sp.changeHead(new Icebreaker());
         Node node = new Node();
         Lane l3 = new Lane();
+        l3.setSurface(new IcySurface());
         sp.move(node, l3);
         System.out.println("--- Teszt vége ---\n");
     }
@@ -135,6 +141,7 @@ public class Main {
         sp.changeHead(new Salter());
         Node node = new Node();
         Lane l2 = new Lane();
+        l2.setSurface(new SnowySurface());
         sp.move(node, l2);
         System.out.println("--- Teszt vége ---\n");
     }
@@ -145,6 +152,7 @@ public class Main {
         sp.changeHead(new Dragon());
         Node node = new Node();
         Lane l2 = new Lane();
+        l2.setSurface(new SnowySurface());
         sp.move(node, l2);
         System.out.println("--- Teszt vége ---\n");
     }
@@ -153,23 +161,27 @@ public class Main {
         System.out.println("\n--- 6. Autó letapossa a havat indítása ---");
         Car car = new Car();
         Map map = new Map();
-        car.move(map);
+        Lane targetLane = map.getNextLane(null, null);
+        targetLane.setSurface(new SnowySurface());
+        targetLane.acceptVehicle(car);
         System.out.println("--- Teszt vége ---\n");
     }
 
     private static void runAutoElakadHobanTeszt() {
         System.out.println("\n--- 7. Autó elakad a hóban indítása ---");
         Car car = new Car();
-        Map map = new Map();
-        car.move(map);
+        Lane targetLane = new Lane();
+        targetLane.setSurface(new SnowySurface());
+        targetLane.acceptVehicle(car);
         System.out.println("--- Teszt vége ---\n");
     }
 
     private static void runJarmuMegcsuszikJegenTeszt() {
         System.out.println("\n--- 8. Jármű megcsúszik a jégen indítása ---");
         Car car = new Car();
-        Map map = new Map();
-        car.move(map);
+        Lane targetLane = new Lane();
+        targetLane.setSurface(new IcySurface());
+        targetLane.acceptVehicle(car);
         System.out.println("--- Teszt vége ---\n");
     }
 
@@ -193,6 +205,7 @@ public class Main {
         Shop shop = new Shop();
         Snowplow sp = new Snowplow();
         Salt salt = new Salt();
+        player.addMoney(100);
         shop.buyResource(player, sp, salt, 1);
         System.out.println("--- Teszt vége ---\n");
     }
@@ -202,6 +215,7 @@ public class Main {
         Snowplow sp = new Snowplow();
         Node node = new Node();
         Lane lane = new Lane();
+        lane.setSurface(new BlockedSurface());
         sp.move(node, lane);
         System.out.println("--- Teszt vége ---\n");
     }

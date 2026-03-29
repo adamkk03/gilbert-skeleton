@@ -7,12 +7,16 @@ import org.example.map.Map;
 import org.example.map.Node;
 import org.example.plowhead.PlowHead;
 import org.example.plowhead.Sweeper;
+import org.example.resource.Resource;
 import org.example.vehicle.Vehicle;
 
 public class Snowplow extends Vehicle {
 
     private PlowHead activeHead = new Sweeper();
     private Inventory inventory = new Inventory();
+
+    private int remainingMoves;
+    private Node currentNode;
 
     public void changeHead(PlowHead head) {
         Logger.call("Snowplow", "changeHead(head)");
@@ -37,5 +41,10 @@ public class Snowplow extends Vehicle {
     @Override
     public boolean move(Map map) {
         return false;
+    }
+
+    public void addResource(Resource type, int amount) {
+        Logger.call("Snowplow", "addResource(type, amount)");
+        Logger.retVoid();
     }
 }
