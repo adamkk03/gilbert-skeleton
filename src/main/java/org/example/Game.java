@@ -24,10 +24,9 @@ public class Game {
      */
     public void startGame() {
         Logger.call("Game", "startGame()");
-        map = new Map();
-        shop = new Shop();
-        Player player1 = new Player();
-        players.add(player1);
+        new Map();
+        new Shop();
+        new Player();
         Logger.retVoid();
     }
 
@@ -37,10 +36,9 @@ public class Game {
      */
     public void passTurn() {
         Logger.call("Game", "passTurn()");
-        if (map != null) {
-            map.weatherTick();
-            map.moveNPCs();
-        }
+        Map map = new Map();
+        map.weatherTick();
+        map.moveNPCs();
         Logger.retVoid();
     }
 }

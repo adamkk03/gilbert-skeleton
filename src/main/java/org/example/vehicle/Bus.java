@@ -4,6 +4,7 @@ import org.example.Logger;
 import org.example.Questioner;
 import org.example.map.Lane;
 import org.example.map.Map;
+import org.example.map.Node;
 
 public class Bus extends Vehicle {
 
@@ -12,7 +13,9 @@ public class Bus extends Vehicle {
         Logger.call("Bus", "move(map)");
 
         // A 14. szekvencia diagram (Busz sikeres célba érése) alapján halad
-        Lane targetLane = map.getNextLane(this.currentLane, this.dest1);
+        Lane currentLane = new Lane();
+        Node dest1 = new Node();
+        Lane targetLane = map.getNextLane(currentLane, dest1);
 
         boolean success = false;
         if (targetLane != null) {

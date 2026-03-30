@@ -10,8 +10,7 @@ public class Salter extends PlowHead {
     public void operate(Lane l, Inventory inv) {
         Logger.call("Salter", "operate(l, inv)");
         // A 11. szekvencia diagram alapján fogyasztja a sót, majd besózza a sávot
-        boolean success = inv.consumeSalt();
-        if (success) {
+        if (inv.consumeSalt()) {
             l.setSalted(true);
         }
         Logger.retVoid();

@@ -45,7 +45,11 @@ public class Snowplow extends Vehicle {
     public boolean move(Node targetNode, Lane viaLane) {
         Logger.call("Snowplow", "move(targetNode, viaLane)");
 
-        boolean cleanSuccess = viaLane.clean(this.activeHead, this.inventory);
+        boolean cleanSuccess = false;
+
+        if (org.example.Questioner.ask("Van-e a hókotrónak megfelelő feje a takarításhoz?")) {
+            cleanSuccess = viaLane.clean(this.activeHead, this.inventory);
+        }
 
         boolean moveSuccess = false;
         if (cleanSuccess) {

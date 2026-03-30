@@ -23,6 +23,20 @@ public class Map {
      */
     public void buildMap() {
         Logger.call("Map", "buildMap()");
+
+        // Alap inicializálás: néhány csomópont és út létrehozása
+        if (nodes.isEmpty()) {
+            for (int i = 0; i < 4; i++) {
+                nodes.add(new Node());
+            }
+        }
+
+        if (roads.isEmpty()) {
+            for (int i = 0; i < 6; i++) {
+                roads.add(new Road());
+            }
+        }
+
         Logger.retVoid();
     }
 
@@ -33,8 +47,7 @@ public class Map {
     public void weatherTick() {
         Logger.call("Map", "weatherTick()");
 
-        boolean isSnowing = Questioner.ask("Havazik éppen?");
-        if (isSnowing) {
+        if (Questioner.ask("Havazik éppen?")) {
             // Szimulálunk egy utat, hogy a lánc továbbmenjen és a havazás lekezelődjön
             Road dummyRoad = new Road();
             dummyRoad.weatherTick();

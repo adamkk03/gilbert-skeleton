@@ -28,7 +28,6 @@ public class Inventory {
      */
     public void addHead(PlowHead h) {
         Logger.call("Inventory", "addHead(h)");
-        storedHeads.add(h);
         Logger.retVoid();
     }
 
@@ -40,7 +39,6 @@ public class Inventory {
      */
     public void removeHead(PlowHead h) {
         Logger.call("Inventory", "removeHead(h)");
-        storedHeads.remove(h);
         Logger.retVoid();
     }
 
@@ -52,9 +50,12 @@ public class Inventory {
      */
     public boolean consumeSalt() {
         Logger.call("Inventory", "consumeSalt()");
-        boolean hasSalt = Questioner.ask("Van még elegendő só a raktárban?");
-        Logger.ret("boolean", String.valueOf(hasSalt));
-        return hasSalt;
+        if (Questioner.ask("Van még elegendő só a raktárban?")) {
+            Logger.ret("boolean", "true");
+            return true;
+        }
+        Logger.ret("boolean", "false");
+        return false;
     }
 
     /**
@@ -65,9 +66,12 @@ public class Inventory {
      */
     public boolean consumeKerosene() {
         Logger.call("Inventory", "consumeKerosene()");
-        boolean hasKerosene = Questioner.ask("Van még elegendő kerozin a raktárban?");
-        Logger.ret("boolean", String.valueOf(hasKerosene));
-        return hasKerosene;
+        if (Questioner.ask("Van még elegendő kerozin a raktárban?")) {
+            Logger.ret("boolean", "true");
+            return true;
+        }
+        Logger.ret("boolean", "false");
+        return false;
     }
 
     /**
@@ -78,7 +82,6 @@ public class Inventory {
      */
     public void addResource(Resource type, int amount) {
         Logger.call("Inventory", "addResource(type, " + amount + ")");
-        // Az erőforrás típusa alapján kezeljük
         Logger.retVoid();
     }
 }

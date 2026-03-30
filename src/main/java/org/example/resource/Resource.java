@@ -9,16 +9,12 @@ public abstract class Resource {
 
     public void consume() {
         Logger.call(this.getClass().getSimpleName(), "consume()");
-        if (amount > 0) {
-            amount--;
-        }
         Logger.retVoid();
     }
 
     public boolean isEmpty() {
         Logger.call(this.getClass().getSimpleName(), "isEmpty()");
-        boolean empty = amount <= 0;
-        Logger.ret("boolean", String.valueOf(empty));
-        return empty;
+        Logger.ret("boolean", "false");
+        return false;
     }
 }

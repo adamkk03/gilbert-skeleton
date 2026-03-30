@@ -31,6 +31,7 @@ public class SnowySurface extends Surface {
     @Override
     public boolean clean(PlowHead head, Inventory inv, Lane l) {
         Logger.call("SnowySurface", "clean(head, inv, l)");
+        head.operate(l, inv);
         Logger.ret("boolean", "true");
         return true;
     }

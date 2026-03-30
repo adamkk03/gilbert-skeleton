@@ -3,6 +3,7 @@ package org.example.vehicle;
 import org.example.Logger;
 import org.example.map.Lane;
 import org.example.map.Map;
+import org.example.map.Node;
 
 public class Car extends Vehicle {
 
@@ -11,7 +12,9 @@ public class Car extends Vehicle {
         Logger.call("Car", "move(map)");
 
         // A 4. szekvencia diagram (Jégképződés) szerint lekéri a Map-től a következő sávot
-        Lane targetLane = map.getNextLane(this.currentLane, this.dest1);
+        Lane currentLane = new Lane();
+        Node dest1 = new Node();
+        Lane targetLane = map.getNextLane(currentLane, dest1);
 
         // Rálép a kiválasztott sávra
         boolean success = false;

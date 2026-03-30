@@ -12,24 +12,16 @@ public class Road {
     public void weatherTick() {
         Logger.call("Road", "weatherTick()");
         // Az időjárás hatása propagálódik az összes sávra
-        for (Lane lane : lanes) {
-            if (lane != null) {
-                lane.receiveSnow(1);
-            }
-        }
+        Lane lane = new Lane();
+        lane.receiveSnow(1);
         Logger.retVoid();
     }
 
     public void pushSnow(Lane from, int amount, boolean pushRight) {
         Logger.call("Road", "pushSnow(from, " + amount + ", " + pushRight + ")");
         // A hó átmozgatása szomszédos sávra
-        int fromIndex = lanes.indexOf(from);
-        if (fromIndex >= 0) {
-            int toIndex = pushRight ? fromIndex + 1 : fromIndex - 1;
-            if (toIndex >= 0 && toIndex < lanes.size() && lanes.get(toIndex) != null) {
-                lanes.get(toIndex).receiveSnow(amount);
-            }
-        }
+        Lane toLane = new Lane();
+        toLane.receiveSnow(amount);
         Logger.retVoid();
     }
 }
