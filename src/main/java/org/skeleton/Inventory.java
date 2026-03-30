@@ -66,12 +66,10 @@ public class Inventory {
      */
     public boolean consumeKerosene() {
         Logger.call("Inventory", "consumeKerosene()");
-        if (Questioner.ask("Van még elegendő kerozin a raktárban?")) {
-            Logger.ret("boolean", "true");
-            return true;
-        }
-        Logger.ret("boolean", "false");
-        return false;
+        boolean hasEnough = Questioner.ask("Van még elegendő kerozin a raktárban? (I/N)");
+        Logger.ret("boolean", String.valueOf(hasEnough));
+
+        return hasEnough;
     }
 
     /**
