@@ -1,0 +1,35 @@
+package org.skeleton.vehicle;
+
+import org.skeleton.Logger;
+import org.skeleton.map.Lane;
+import org.skeleton.map.Map;
+
+/**
+ * A gép által irányított városi forgalmat (NPC jármű) reprezentáló osztály. A
+ * legrövidebb utat keresi a végállomásai között.
+ */
+public class Car extends Vehicle {
+
+    /**
+     * A megörökölt absztrakt metódus implementációja. A kapott map objektum
+     * segítségével lekéri a következő sávot a legrövidebb úton, majd rálép.
+     *
+     * @param map A város térképe a navigációhoz
+     * @return Igaz, ha a sávra lépés (vagy legalább a rálépési kísérlet)
+     * sikeres volt.
+     */
+    @Override
+    public boolean move(Map map) {
+        Logger.call("Car", "move(map)");
+
+        Lane targetLane = map.getNextLane(this.currentLane, this.dest1);
+
+        boolean success = false;
+        if (targetLane != null) {
+            success = targetLane.acceptVehicle(this);
+        }
+
+        Logger.ret("boolean", String.valueOf(success));
+        return success;
+    }
+}
