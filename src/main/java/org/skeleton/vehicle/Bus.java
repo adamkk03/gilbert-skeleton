@@ -21,6 +21,8 @@ public class Bus extends Vehicle {
     @Override
     public boolean move(Map map) {
         Logger.call("Bus", "move(map)");
+
+        // A 14. szekvencia diagram (Busz sikeres célba érése) alapján halad
         Lane targetLane = map.getNextLane(this.currentLane, this.dest1);
 
         boolean success = false;

@@ -25,7 +25,7 @@ public class Node {
     public void acceptSnowplow(Snowplow s) {
         Logger.call("Node", "acceptSnowplow(s)");
         if (s != null) {
-            restingSnowplows.add(s);
+            // Fogadott hókotró feldolgozása
         }
         Logger.retVoid();
     }

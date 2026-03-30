@@ -49,7 +49,7 @@ public class Lane {
      */
     public boolean acceptVehicle(Vehicle v) {
         Logger.call("Lane", "acceptVehicle(v)");
-        boolean result = this.surface.handleVehicle(v, this);
+        boolean result = new CleanSurface().handleVehicle(v, this);
         Logger.ret("boolean", String.valueOf(result));
         return result;
     }
@@ -61,7 +61,7 @@ public class Lane {
      */
     public void receiveSnow(int amount) {
         Logger.call("Lane", "receiveSnow(" + amount + ")");
-        this.surface.receiveSnow(amount, this);
+        new CleanSurface().receiveSnow(amount, this);
         Logger.retVoid();
     }
 
@@ -72,7 +72,6 @@ public class Lane {
      */
     public void setSurface(Surface s) {
         Logger.call("Lane", "setSurface(s)");
-        this.surface = s;
         Logger.retVoid();
     }
 
@@ -83,7 +82,6 @@ public class Lane {
      */
     public void setSalted(boolean salted) {
         Logger.call("Lane", "setSalted(" + salted + ")");
-        this.isSalted = salted;
         Logger.retVoid();
     }
 

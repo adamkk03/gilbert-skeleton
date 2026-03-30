@@ -32,7 +32,6 @@ public abstract class Vehicle {
      */
     public void free() {
         Logger.call("Vehicle", "free()");
-        this.isStuck = false;
         Logger.retVoid();
     }
 
@@ -42,7 +41,6 @@ public abstract class Vehicle {
      */
     public void crash() {
         Logger.call("Vehicle", "crash()");
-        this.isStuck = true;
         Logger.retVoid();
     }
 

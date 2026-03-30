@@ -22,6 +22,7 @@ public class Car extends Vehicle {
     public boolean move(Map map) {
         Logger.call("Car", "move(map)");
 
+        // A 4. szekvencia diagram (Jégképződés) szerint lekéri a Map-től a következő sávot
         Lane targetLane = map.getNextLane(this.currentLane, this.dest1);
 
         boolean success = false;

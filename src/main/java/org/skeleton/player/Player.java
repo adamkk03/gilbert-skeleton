@@ -27,9 +27,8 @@ public class Player {
      */
     public void moveBus() {
         Logger.call("Player", "moveBus()");
-        if (bus != null) {
-            bus.move(null);
-        }
+        Bus bus = new Bus();
+        bus.move(null);
         Logger.retVoid();
     }
 
@@ -42,9 +41,7 @@ public class Player {
      */
     public void moveSnowplow(Snowplow sp, Node target, Lane via) {
         Logger.call("Player", "moveSnowplow(sp, target, via)");
-        if (sp != null) {
-            sp.move(target, via);
-        }
+        sp.move(target, via);
         Logger.retVoid();
     }
 
@@ -55,7 +52,6 @@ public class Player {
      */
     public void addSnowplow(Snowplow sp) {
         Logger.call("Player", "addSnowplow(sp)");
-        snowplows.add(sp);
         Logger.retVoid();
     }
 
@@ -67,32 +63,33 @@ public class Player {
      */
     public boolean spendMoney(int amount) {
         Logger.call("Player", "spendMoney(" + amount + ")");
-        boolean canSpend = Questioner.ask("Van a játékosnak elég pénze (" + amount + ") a tranzakcióhoz?");
-        Logger.ret("boolean", String.valueOf(canSpend));
-        return canSpend;
+        if (Questioner.ask("Van a játékosnak elég pénze (" + amount + ") a tranzakcióhoz?")) {
+            Logger.ret("boolean", "true");
+            return true;
+        }
+        Logger.ret("boolean", "false");
+        return false;
     }
 
     public int getMoney() {
         Logger.call("Player", "getMoney()");
-        Logger.ret("int", String.valueOf(money));
-        return money;
+        Logger.ret("int", "0");
+        return 0;
     }
 
     public void addMoney(int amount) {
         Logger.call("Player", "addMoney(" + amount + ")");
-        money += amount;
         Logger.retVoid();
     }
 
     public int getScore() {
         Logger.call("Player", "getScore()");
-        Logger.ret("int", String.valueOf(score));
-        return score;
+        Logger.ret("int", "0");
+        return 0;
     }
 
     public void addScore(int amount) {
         Logger.call("Player", "addScore(" + amount + ")");
-        score += amount;
         Logger.retVoid();
     }
 }

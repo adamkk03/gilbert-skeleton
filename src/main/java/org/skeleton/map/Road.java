@@ -20,6 +20,7 @@ public class Road {
      */
     public void weatherTick() {
         Logger.call("Road", "weatherTick()");
+        // Az időjárás hatása propagálódik az összes sávra
         for (Lane lane : lanes) {
             if (lane != null) {
                 lane.receiveSnow(1);
@@ -38,6 +39,7 @@ public class Road {
      */
     public void pushSnow(Lane from, int amount, boolean pushRight) {
         Logger.call("Road", "pushSnow(from, " + amount + ", " + pushRight + ")");
+        // A hó átmozgatása szomszédos sávra
         int fromIndex = lanes.indexOf(from);
         if (fromIndex >= 0) {
             int toIndex = pushRight ? fromIndex + 1 : fromIndex - 1;
