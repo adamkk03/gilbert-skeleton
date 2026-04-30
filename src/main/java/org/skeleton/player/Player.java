@@ -3,93 +3,64 @@ package org.skeleton.player;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.skeleton.Logger;
-import org.skeleton.Questioner;
 import org.skeleton.map.Lane;
 import org.skeleton.map.Node;
 import org.skeleton.vehicle.Bus;
 
-/**
- * A játékost reprezentáló entitás. Felelőssége a megszerzett pontszám és pénz
- * nyilvántartása, valamint a birtokolt járművek (hókotrók és buszok) irányítása
- * és a vásárlások kezdeményezése.
- */
 public class Player {
 
     private String name;
     private int money;
     private int score;
-    private List<Snowplow> snowplows = new ArrayList<>();
+    private List<Snowplow> snowplows;
     private Bus bus;
 
-    /**
-     * A játékos buszának mozgatását kezdeményezi.
-     */
+    public Player(String name) {
+        this.name = name;
+        this.snowplows = new ArrayList<>();
+    }
+
     public void moveBus() {
-        Logger.call("Player", "moveBus()");
-        Bus bus = new Bus();
-        bus.move(null);
-        Logger.retVoid();
+        // Logika a busz mozgatására
     }
 
-    /**
-     * A kiválasztott hókotrót utasítja mozgásra a megadott útvonalon.
-     *
-     * @param sp A mozgatni kívánt hókotró
-     * @param target A cél csomópont
-     * @param via Az útvonal (sáv) amin halad
-     */
     public void moveSnowplow(Snowplow sp, Node target, Lane via) {
-        Logger.call("Player", "moveSnowplow(sp, target, via)");
         sp.move(target, via);
-        Logger.retVoid();
     }
 
-    /**
-     * Felvesz egy új hókotrót a játékoshoz.
-     *
-     * @param sp Az új hókotró
-     */
     public void addSnowplow(Snowplow sp) {
-        Logger.call("Player", "addSnowplow(sp)");
-        Logger.retVoid();
+        snowplows.add(sp);
     }
 
-    /**
-     * Elvégzi a fizetést, és igazzal tér vissza ha sikeres a tranzakció.
-     *
-     * @param amount A levonandó összeg
-     * @return Igaz, ha volt elég pénz és a tranzakció sikeres.
-     */
     public boolean spendMoney(int amount) {
-        Logger.call("Player", "spendMoney(" + amount + ")");
-        if (Questioner.ask("Van a játékosnak elég pénze (" + amount + ") a tranzakcióhoz?")) {
-            Logger.ret("boolean", "true");
+        if (money >= amount) {
+            money -= amount;
             return true;
         }
-        Logger.ret("boolean", "false");
         return false;
     }
 
     public int getMoney() {
-        Logger.call("Player", "getMoney()");
-        Logger.ret("int", "0");
-        return 0;
+        return money;
     }
 
     public void addMoney(int amount) {
-        Logger.call("Player", "addMoney(" + amount + ")");
-        Logger.retVoid();
+        this.money += amount;
     }
 
     public int getScore() {
-        Logger.call("Player", "getScore()");
-        Logger.ret("int", "0");
-        return 0;
+        return score;
     }
 
     public void addScore(int amount) {
-        Logger.call("Player", "addScore(" + amount + ")");
-        Logger.retVoid();
+        this.score += amount;
+    }
+
+    public void resetState() {
+        // Lépéspontok és egyéb kör eleji értékek visszaállítása
+    }
+
+    public void addEquipment(String itemType) {
+        // Új PlowHead létrehozása és inventory-hoz adása a string alapján
     }
 }

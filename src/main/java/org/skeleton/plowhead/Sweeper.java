@@ -1,29 +1,15 @@
 package org.skeleton.plowhead;
 
 import org.skeleton.Inventory;
-import org.skeleton.Logger;
 import org.skeleton.map.Lane;
 import org.skeleton.surface.CleanSurface;
 
-/**
- * Alapvető kotrófej, amely a havat képes a szomszédos sávba seperni.
- */
 public class Sweeper extends PlowHead {
 
-    /**
-     * A vékony havat letakarítja és egy szomszédos sávra tolja, ezáltal a
-     * jelenlegi sáv tiszta lesz.
-     *
-     * @param l A takarítandó sáv
-     * @param inv A gép nyersanyag raktára
-     */
     @Override
     public void operate(Lane l, Inventory inv) {
-        Logger.call("Sweeper", "operate(l, inv)");
-        Lane neighborLane = new Lane(); 
-        neighborLane.receiveSnow(1);
-
+        // Ide kerülne a Road objektumon keresztüli hólökés, a sávot magát megtisztítja
         l.setSurface(new CleanSurface());
-        Logger.retVoid();
+        l.setGraveled(false);
     }
 }

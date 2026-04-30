@@ -2,63 +2,40 @@ package org.skeleton;
 
 import org.skeleton.player.Player;
 import org.skeleton.player.Snowplow;
-import org.skeleton.plowhead.PlowHead;
-import org.skeleton.resource.Resource;
+import java.util.HashMap;
 
-/**
- * A vásárlási tranzakciókért felelős hely. Közvetíti a játékos pénzköltését,
- * beszerzi és a megfelelő hókotrónak az inventory-jához rendeli az újonnan
- * vásárolt kotrófejeket vagy nyersanyagokat. Itt lehet több hókotrót is venni.
- */
 public class Shop {
 
-    /**
-     * Levonja a fej árát a játékostól, és az újonnan megvásárolt kotrófejet a
-     * megadott snowplow raktárába (Inventory) helyezi el.
-     *
-     * @param p A vásárló játékos
-     * @param sp A hókotró, amire a fej kerül
-     * @param newHead A megvásárolt új kotrófej
-     */
-    public void buyHead(Player p, Snowplow sp, PlowHead newHead) {
-        Logger.call("Shop", "buyHead(p, sp, newHead)");
-        if (p != null && p.spendMoney(100)) {
-            if (sp != null) {
-                sp.changeHead(newHead);
-            }
-        }
-        Logger.retVoid();
+    private java.util.Map<String, Integer> prices;
+
+    public Shop() {
+        prices = new HashMap<>();
     }
 
-    /**
-     * Levonja a nyersanyag árát a játékostól, és az újonnan megvásárolt
-     * nyersanyagokat a megadott snowplow raktárába (Inventory) helyezi el.
-     *
-     * @param p A vásárló játékos
-     * @param sp A hókotró, ami a nyersanyagot kapja
-     * @param type A nyersanyag típusa
-     * @param amount A mennyiség
-     */
-    public void buyResource(Player p, Snowplow sp, Resource type, int amount) {
-        Logger.call("Shop", "buyResource(p, sp, type, amount)");
-        if (p != null && p.spendMoney(50)) {
-            if (sp != null) {
-                sp.addResource(type, amount);
-            }
+    public boolean buySnowplow(Player p) {
+        Integer price = prices.get("Snowplow");
+        if (price != null && p.spendMoney(price)) {
+            Snowplow newSp = new Snowplow();
+            p.addSnowplow(newSp);
+            return true;
         }
-        Logger.retVoid();
+        return false;
     }
 
-    /**
-     * Új hókotró vásárlása az adott játékos számára.
-     *
-     * @param p A vásárló játékos
-     */
-    public void buySnowplow(Player p) {
-        Logger.call("Shop", "buySnowplow(p)");
-        if (p != null && p.spendMoney(500)) {
-            p.addSnowplow(new Snowplow());
+    public boolean sellEquipment(Player p, String itemType) {
+        Integer price = prices.get(itemType);
+        if (price != null && p.spendMoney(price)) {
+            p.addEquipment(itemType);
+            return true;
         }
-        Logger.retVoid();
+        return false;
+    }
+
+    public void fillInventory() {
+        prices.put("Snowplow", 5000);
+        prices.put("Thrower", 1000);
+        prices.put("Dragon", 2000);
+        prices.put("Salter", 800);
+        prices.put("Graveler", 800);
     }
 }

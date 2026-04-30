@@ -3,50 +3,54 @@ package org.skeleton.map;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.skeleton.Logger;
-
-/**
- * A csomópontokat összekötő útszakasz. Felelőssége az egymás mellett haladó
- * sávok (Lane) összefogása, valamint annak koordinálása, hogy a takarítás során
- * oldalra tolt hó a megfelelő szomszédos sávba kerüljön.
- */
 public class Road {
 
-    private List<Lane> lanes = new ArrayList<>();
+    private Node nodeA;
+    private Node nodeB;
+    private List<Lane> lanes;
 
-    /**
-     * Végigiterál a sávokon, és mindegyiknek delegálja a havazást. Az időjárás
-     * hatása propagálódik az összes sávra.
-     */
-    public void weatherTick() {
-        Logger.call("Road", "weatherTick()");
-        // Az időjárás hatása propagálódik az összes sávra
-        for (Lane lane : lanes) {
-            if (lane != null) {
-                lane.receiveSnow(1);
-            }
-        }
-        Logger.retVoid();
+    public Road(Node a, Node b) {
+        this.nodeA = a;
+        this.nodeB = b;
+        this.lanes = new ArrayList<>();
     }
 
-    /**
-     * A kiinduló sáv indexe alapján megkeresi a szomszédos sávot, és áttolja
-     * oda a havat.
-     *
-     * @param from A sáv, ahonnan a havat tolják
-     * @param amount Az áttolt hó mennyisége
-     * @param pushRight Igaz, ha jobbra toljuk a havat, hamis, ha balra
-     */
-    public void pushSnow(Lane from, int amount, boolean pushRight) {
-        Logger.call("Road", "pushSnow(from, " + amount + ", " + pushRight + ")");
-        // A hó átmozgatása szomszédos sávra
-        int fromIndex = lanes.indexOf(from);
-        if (fromIndex >= 0) {
-            int toIndex = pushRight ? fromIndex + 1 : fromIndex - 1;
-            if (toIndex >= 0 && toIndex < lanes.size() && lanes.get(toIndex) != null) {
-                lanes.get(toIndex).receiveSnow(amount);
+    public List<Lane> getLanes() {
+        return lanes;
+    }
+
+    private Lane getNeighborOf(Lane l) {
+        int index = lanes.indexOf(l);
+        if (index >= 0 && index < lanes.size() - 1) {
+            return lanes.get(index + 1);
+        }
+        return null;
+    }
+
+    public boolean hasAccessibleLane() {
+        for (Lane lane : lanes) {
+            // A BlockedSurface lekérdezésének egyszerűsítése (mivel a hasAccessibleLane metódus true-t vár, ha járható)
+            if (lane.isAccessible()) {
+                return true;
             }
         }
-        Logger.retVoid();
+        return false;
+    }
+
+    public Node getOtherEnd(Node n) {
+        if (n.equals(nodeA)) {
+            return nodeB;
+        }
+        if (n.equals(nodeB)) {
+            return nodeA;
+        }
+        return null;
+    }
+
+    public void pushSnow(Lane from, int amount) {
+        Lane neighborLane = this.getNeighborOf(from);
+        if (neighborLane != null) {
+            neighborLane.receiveSnow(amount);
+        }
     }
 }

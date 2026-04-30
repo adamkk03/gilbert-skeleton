@@ -2,14 +2,13 @@ package org.skeleton.plowhead;
 
 import org.skeleton.Inventory;
 import org.skeleton.map.Lane;
-import org.skeleton.surface.CleanSurface;
 
-public class Dragon extends PlowHead {
+public class Graveler extends PlowHead {
 
     @Override
     public void operate(Lane l, Inventory inv) {
-        if (inv.consumeKerosene()) {
-            l.setSurface(new CleanSurface());
+        if (inv.consumeGravel()) {
+            l.setGraveled(true);
         }
     }
 }

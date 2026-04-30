@@ -1,40 +1,33 @@
 package org.skeleton.vehicle;
 
-import org.skeleton.Logger;
-import org.skeleton.Questioner;
 import org.skeleton.map.Lane;
-import org.skeleton.map.Map;
+import org.skeleton.map.Node;
+import org.skeleton.player.Player;
 
-/**
- * A játékos által irányított utasszállító, amely két végállomás között próbál
- * minél többször megfordulni.
- */
 public class Bus extends Vehicle {
 
-    /**
-     * A játékos irányítása alapján megkísérel haladni az úton a célállomás
-     * felé.
-     *
-     * @param map A város térképe a navigációhoz
-     * @return Igaz, ha a lépés és az útvonalválasztás sikeres volt.
-     */
+    private Player owner;
+    private Node endpointA;
+    private Node endpointB;
+    private int completedTours;
+    private int stuckCounter;
+
+    public void playTurn(Lane destination) {
+        if (stuckCounter > 0) {
+            stuckCounter--;
+            return;
+        }
+        if (this.move(destination)) {
+            Node currentNode = this.getCurrentNode();
+            if (currentNode != null && (currentNode.equals(endpointA) || currentNode.equals(endpointB))) {
+                completedTours++;
+            }
+        }
+    }
+
     @Override
-    public boolean move(Map map) {
-        Logger.call("Bus", "move(map)");
-
-        // A 14. szekvencia diagram (Busz sikeres célba érése) alapján halad
-        Lane targetLane = map.getNextLane(this.currentLane, this.dest1);
-
-        boolean success = false;
-        if (targetLane != null) {
-            success = targetLane.acceptVehicle(this);
-        }
-
-        boolean arrived = Questioner.ask("A busz elérte a célállomást?");
-        if (arrived) {
-        }
-
-        Logger.ret("boolean", String.valueOf(success));
-        return success;
+    public void slip() {
+        super.slip();
+        this.stuckCounter = 3;
     }
 }

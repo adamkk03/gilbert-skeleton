@@ -1,8 +1,8 @@
 package org.skeleton.resource;
 
-public class Salt extends Resource {
+public class Gravel extends Resource {
 
-    public Salt() {
+    public Gravel() {
         this.amount = 10;
         this.price = 50;
     }

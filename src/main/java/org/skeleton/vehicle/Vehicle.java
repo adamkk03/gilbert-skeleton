@@ -1,47 +1,53 @@
 package org.skeleton.vehicle;
 
-import org.skeleton.Logger;
 import org.skeleton.map.Lane;
-import org.skeleton.map.Map;
 import org.skeleton.map.Node;
 
-/**
- * A sávokon közlekedő, az időjárásnak és az útviszonyoknak kitett entitások
- * általános fogalma. Nyilvántartja a saját pozícióját, a célállomásait, és hogy
- * éppen elakadt-e. Haladásával a havat letapossa, jégen pedig balesetet
- * szenvedhet, amivel blokkolja az utat a többiek elől.
- */
 public abstract class Vehicle {
 
-    protected Lane currentLane;
-    protected boolean isStuck = false;
-    protected Node dest1;
-    protected Node dest2;
+    private Lane currentLane;
+    private boolean isStuck;
 
-    /**
-     * Leszármazottakban megvalósítandó mozgási logika.
-     *
-     * @param map A város teljes úthálózatának nyilvántartója, ami alapján a
-     * jármű navigál.
-     * @return Igaz, ha a jármű sikeresen mozgott.
-     */
-    public abstract boolean move(Map map);
+    public boolean move(Lane destination) {
+        if (isStuck) {
+            return false;
+        }
+        if (destination.acceptVehicle(this)) {
+            if (currentLane != null) {
+                currentLane.removeVehicle(this);
+            }
+            currentLane = destination;
+            return true;
+        }
+        return false;
+    }
 
-    /**
-     * Kiszabadítja a járművet az elakadásból (isStuck = false).
-     */
+    public void slip() {
+        this.isStuck = true;
+    }
+
     public void free() {
-        Logger.call("Vehicle", "free()");
-        Logger.retVoid();
+        this.isStuck = false;
     }
 
-    /**
-     * Jeges sávon történő baleset esetén hívódik meg, mozgásképtelenné téve a
-     * járművet.
-     */
     public void crash() {
-        Logger.call("Vehicle", "crash()");
-        Logger.retVoid();
+        this.isStuck = true;
     }
 
+    public Node getCurrentNode() {
+        // Absztrakt visszatérés a struktúra bemutatásához
+        return null;
+    }
+
+    public Lane getCurrentLane() {
+        return currentLane;
+    }
+
+    public void setCurrentLane(Lane lane) {
+        this.currentLane = lane;
+    }
+
+    public boolean isStuck() {
+        return this.isStuck;
+    }
 }

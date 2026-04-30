@@ -1,32 +1,29 @@
 package org.skeleton.map;
 
+import org.skeleton.player.Snowplow;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.skeleton.Logger;
-import org.skeleton.player.Snowplow;
-
-/**
- * Egy kereszteződést reprezentál a térképen. Nyilvántartja a rácsatlakozó
- * utakat, illetve biztosítja a biztonságos pihenőhelyet a hókotrók számára,
- * hogy ne akadályozzák a forgalmat, amikor épp nem dolgoznak.
- */
 public class Node {
 
-    private List<Road> connectedRoads = new ArrayList<>();
-    private List<Snowplow> restingSnowplows = new ArrayList<>();
+    private List<Road> roads;
+    private List<Snowplow> restingSnowplows;
 
-    /**
-     * Fogadja a csomópontra érkező hókotrót, és biztonságos pihenőhelyet
-     * biztosít számára.
-     *
-     * @param s Az érkező hókotró
-     */
+    public Node() {
+        this.roads = new ArrayList<>();
+        this.restingSnowplows = new ArrayList<>();
+    }
+
+    public void addRoad(Road r) {
+        roads.add(r);
+    }
+
+    public List<Road> getNeighbors() {
+        return roads;
+    }
+
     public void acceptSnowplow(Snowplow s) {
-        Logger.call("Node", "acceptSnowplow(s)");
-        if (s != null) {
-            // Fogadott hókotró feldolgozása
-        }
-        Logger.retVoid();
+        restingSnowplows.add(s);
+        s.setCurrentNode(this);
     }
 }
