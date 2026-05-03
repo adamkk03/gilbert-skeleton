@@ -13,6 +13,7 @@ public class SnowySurface extends Surface {
     @Override
     public boolean handleVehicle(Vehicle v, Lane l) {
         if (l.getSnowThickness() > THICKNESS_LIMIT) {
+            v.slip();
             return false;
         }
         l.incrementTrampleCount();
@@ -32,7 +33,12 @@ public class SnowySurface extends Surface {
     }
 
     @Override
+    public boolean isAccessible() {
+        return true;
+    }
+
+    @Override
     public void receiveSnow(int amount, Lane l) {
-        l.addSnow(amount);
+
     }
 }

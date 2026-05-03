@@ -1,5 +1,7 @@
 package org.skeleton.resource;
 
+import org.skeleton.Inventory;
+
 public abstract class Resource {
 
     protected int amount;
@@ -14,4 +16,10 @@ public abstract class Resource {
     public boolean isEmpty() {
         return amount <= 0;
     }
+
+    public void addAmount(int extraAmount) {
+        this.amount += extraAmount;
+    }
+
+    public abstract void fillInventory(Inventory inv, int amount);
 }

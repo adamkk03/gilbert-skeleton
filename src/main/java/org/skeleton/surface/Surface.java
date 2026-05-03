@@ -11,5 +11,7 @@ public abstract class Surface {
 
     public abstract boolean clean(PlowHead head, Inventory inv, Lane l);
 
+    public abstract boolean isAccessible();
+
     public abstract void receiveSnow(int amount, Lane l);
 }

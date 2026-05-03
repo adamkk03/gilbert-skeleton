@@ -6,6 +6,7 @@ import org.skeleton.map.Node;
 public abstract class Vehicle {
 
     private Lane currentLane;
+    private Node currentNode;
     private boolean isStuck;
 
     public boolean move(Lane destination) {
@@ -35,8 +36,11 @@ public abstract class Vehicle {
     }
 
     public Node getCurrentNode() {
-        // Absztrakt visszatérés a struktúra bemutatásához
-        return null;
+        return currentNode;
+    }
+
+    public void setCurrentNode(Node node) {
+        this.currentNode = node;
     }
 
     public Lane getCurrentLane() {

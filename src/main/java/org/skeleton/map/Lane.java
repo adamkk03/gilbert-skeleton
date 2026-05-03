@@ -19,6 +19,7 @@ public class Lane {
     private List<Vehicle> vehicles;
     private Surface surface;
     private final int THICKNESS_LIMIT = 5;
+    private Road road;
 
     public Lane() {
         this.vehicles = new ArrayList<>();
@@ -74,8 +75,8 @@ public class Lane {
     public void setSalted(boolean b) {
         if (b) {
             this.saltAmount = 5; // Példa érték
-
-            }}
+            }
+    }
 
     public int getSnowThickness() {
         return snowThickness;
@@ -94,7 +95,14 @@ public class Lane {
     }
 
     public boolean isAccessible() {
-        // Segédmetódus a Road osztály hasAccessibleLane ellenőrzéséhez
-        return !(surface instanceof org.skeleton.surface.BlockedSurface);
+        return surface.isAccessible();
+    }
+
+    public void setRoad(Road r) {
+        this.road = r;
+    }
+
+    public Road getRoad() {
+        return this.road;
     }
 }

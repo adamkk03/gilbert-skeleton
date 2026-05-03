@@ -8,7 +8,11 @@ public class Sweeper extends PlowHead {
 
     @Override
     public void operate(Lane l, Inventory inv) {
-        // Ide kerülne a Road objektumon keresztüli hólökés, a sávot magát megtisztítja
+        int snowAmount = l.getSnowThickness();
+        if (snowAmount > 0 && l.getRoad() != null) {
+            l.getRoad().pushSnow(l, snowAmount);
+        }
+
         l.setSurface(new CleanSurface());
         l.setGraveled(false);
     }

@@ -1,5 +1,6 @@
 package org.skeleton.map;
 
+import org.skeleton.vehicle.Car;
 import org.skeleton.vehicle.Vehicle;
 import java.util.*;
 
@@ -7,10 +8,12 @@ public class Map {
 
     private List<Node> nodes;
     private List<Road> roads;
+    private List<Car> cars;
 
     public Map() {
         this.nodes = new ArrayList<>();
         this.roads = new ArrayList<>();
+        this.cars = new ArrayList<>();
     }
 
     public void addNode(Node n) {
@@ -21,13 +24,18 @@ public class Map {
         roads.add(r);
     }
 
+    public void addCar(Car c) {
+        if (c != null) {
+            cars.add(c);
+        }
+    }
+
     public void generate() {
         // Pályaleíró beolvasása és inicializálása
     }
 
-    public List<Vehicle> getCars() {
-        List<Vehicle> cars = new ArrayList<>();
-        return cars;
+    public List<Car> getCars() {
+        return this.cars;
     }
 
     public List<Road> getRoads() {

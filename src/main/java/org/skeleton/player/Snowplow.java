@@ -12,10 +12,11 @@ public class Snowplow extends Vehicle {
     private PlowHead activeHead;
     private Inventory inventory;
     private int remainingMoves;
-    private Node currentNode;
+    private final int MAX_MOVES = 3;
 
     public Snowplow() {
         this.inventory = new Inventory();
+        this.remainingMoves = MAX_MOVES;
     }
 
     public void changeHead(PlowHead head) {
@@ -30,15 +31,12 @@ public class Snowplow extends Vehicle {
         if (remainingMoves > 0) {
             remainingMoves--;
             viaLane.clean(activeHead, inventory);
-
             if (this.getCurrentLane() != null) {
                 this.getCurrentLane().removeVehicle(this);
             }
-
             this.setCurrentLane(viaLane);
-            this.currentNode = targetNode;
+            this.setCurrentNode(targetNode);
             viaLane.acceptVehicle(this);
-
             return true;
         }
         return false;
@@ -54,7 +52,11 @@ public class Snowplow extends Vehicle {
         inventory.addResource(type, amount);
     }
 
-    public void setCurrentNode(Node node) {
-        this.currentNode = node;
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void resetMoves() {
+        this.remainingMoves = MAX_MOVES;
     }
 }

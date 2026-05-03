@@ -30,4 +30,10 @@ public class Bus extends Vehicle {
         super.slip();
         this.stuckCounter = 3;
     }
+
+    @Override
+    public void crash() {
+        super.crash();
+        this.stuckCounter = 3;
+    }
 }

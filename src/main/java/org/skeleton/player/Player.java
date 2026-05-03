@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.skeleton.map.Lane;
 import org.skeleton.map.Node;
+import org.skeleton.plowhead.*;
 import org.skeleton.vehicle.Bus;
 
 public class Player {
@@ -20,8 +21,10 @@ public class Player {
         this.snowplows = new ArrayList<>();
     }
 
-    public void moveBus() {
-        // Logika a busz mozgatására
+    public void moveBus(Lane destination) {
+        if (this.bus != null) {
+            this.bus.playTurn(destination);
+        }
     }
 
     public void moveSnowplow(Snowplow sp, Node target, Lane via) {
@@ -38,6 +41,10 @@ public class Player {
             return true;
         }
         return false;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public int getMoney() {
@@ -58,9 +65,24 @@ public class Player {
 
     public void resetState() {
         // Lépéspontok és egyéb kör eleji értékek visszaállítása
+        for (Snowplow sp : snowplows) {
+            sp.resetMoves();
+        }
     }
 
-    public void addEquipment(String itemType) {
-        // Új PlowHead létrehozása és inventory-hoz adása a string alapján
+    public void addEquipment(Snowplow sp, String itemType) {
+        PlowHead newHead = switch (itemType.toLowerCase()) {
+            case "salter" -> new Salter();
+            case "sweeper" -> new Sweeper();
+            case "thrower" -> new Thrower();
+            case "dragon" -> new Dragon();
+            case "icebreaker" -> new Icebreaker();
+            case "graveler" -> new Graveler();
+            default -> null;
+        };
+
+        if (newHead != null && snowplows.contains(sp)) {
+            sp.getInventory().addHead(newHead);
+        }
     }
 }

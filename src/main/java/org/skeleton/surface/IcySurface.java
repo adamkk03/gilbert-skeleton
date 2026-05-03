@@ -27,7 +27,12 @@ public class IcySurface extends Surface {
     }
 
     @Override
+    public boolean isAccessible() {
+        return true;
+    }
+
+    @Override
     public void receiveSnow(int amount, Lane l) {
-        l.addSnow(amount);
+
     }
 }

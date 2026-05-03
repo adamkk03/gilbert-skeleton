@@ -22,6 +22,11 @@ public class BlockedSurface extends Surface {
     }
 
     @Override
+    public boolean isAccessible() {
+        return false;
+    }
+
+    @Override
     public void receiveSnow(int amount, Lane l) {
         // Blokkolt úton a havazásnak nincs további hatása a járhatóságra
     }

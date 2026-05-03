@@ -33,7 +33,7 @@ public class Main {
     private static HashMap<String, Vehicle> vehicles = new HashMap<>();
     private static HashMap<String, Player> players = new HashMap<>();
     private static HashMap<String, Snowplow> snowplows = new HashMap<>();
-
+    private static Shop shop = new Shop();
     private static boolean isRandomOn = true;
 
     public static void main(String[] args) {
@@ -157,9 +157,9 @@ public class Main {
 
         Road r = new Road(nA, nB);
         roads.put(id, r);
-
         for (int i = 1; i <= laneCount; i++) {
             Lane l = new Lane();
+            l.setRoad(r);
             r.getLanes().add(l);
             lanes.put("lane_" + i, l);
         }
@@ -257,9 +257,18 @@ public class Main {
     private static void handleBuy(String[] parts) {
         Player p = players.get(parts[1]);
         Snowplow sp = snowplows.get(parts[3]);
+        String type = parts[4];
+
         if (p != null && sp != null) {
-            if (p.spendMoney(1000)) {
-                sp.changeHead(new Thrower());
+            String capitalizedType = type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase();
+
+            // A Shop csak a pénzlevonásért és jogosultságért felel
+            if (shop.sellEquipment(p, capitalizedType)) {
+                // A Player felel a felszerelés létrehozásáért és raktározásáért
+                p.addEquipment(sp, type);
+                System.out.println(type + " sikeresen megvásárolva és a raktárba helyezve!");
+            } else {
+                System.out.println("Sikertelen vásárlás (nincs elég pénz, vagy nem létező termék).");
             }
         }
     }
@@ -318,5 +327,7 @@ public class Main {
         snowplows.put("sp1", sp1);
 
         players.put("player1", new Player("Player 1"));
+
+        shop.fillInventory();
     }
 }

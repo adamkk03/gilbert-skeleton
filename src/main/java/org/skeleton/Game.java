@@ -4,6 +4,7 @@ import org.skeleton.map.Map;
 import org.skeleton.map.Road;
 import org.skeleton.map.Lane;
 import org.skeleton.player.Player;
+import org.skeleton.vehicle.Car;
 import org.skeleton.vehicle.Vehicle;
 
 import java.util.List;
@@ -50,11 +51,8 @@ public class Game {
     }
 
     private void moveNPCs() {
-        for (Vehicle car : map.getCars()) {
-            Lane nextLane = map.getShortestPath(car.getCurrentNode(), ((org.skeleton.vehicle.Car) car).getWorkplace());
-            if (nextLane != null) {
-                car.move(nextLane);
-            }
+        for (Car car : map.getCars()) {
+            car.moveTowardsDestination(map);
         }
     }
 
@@ -79,7 +77,19 @@ public class Game {
     }
 
     private void endGame() {
-        System.out.println("A játék véget ért!");
+        Player winner = null;
+        for (Player p : players) {
+            if (winner == null || p.getScore() > winner.getScore()) {
+                winner = p;
+            }
+        }
+
+        if (winner != null) {
+            // Megjegyzés: Ehhez a Player osztályba be kell tenni a getName() metódust!
+            System.out.println("A játék véget ért! A győztes: " + winner.getName() + " " + winner.getScore() + " ponttal.");
+        } else {
+            System.out.println("A játék véget ért! Nincs győztes.");
+        }
     }
 
     public Shop getShop() {

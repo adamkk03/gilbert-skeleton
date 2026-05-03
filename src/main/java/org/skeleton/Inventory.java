@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.skeleton.plowhead.PlowHead;
+import org.skeleton.resource.BioKerosene;
+import org.skeleton.resource.Gravel;
 import org.skeleton.resource.Resource;
+import org.skeleton.resource.Salt;
 
 public class Inventory {
 
@@ -15,6 +18,9 @@ public class Inventory {
 
     public Inventory() {
         this.storedHeads = new ArrayList<>();
+        this.salt = new Salt();
+        this.kerosene = new BioKerosene();
+        this.gravel = new Gravel();
     }
 
     public void addHead(PlowHead h) {
@@ -50,6 +56,26 @@ public class Inventory {
     }
 
     public void addResource(Resource type, int amount) {
-        // Logika a megfelelő resource növelésére
+        if (type != null) {
+            type.fillInventory(this, amount);
+        }
+    }
+
+    public void addSalt(int amount) {
+        if (this.salt != null) {
+            this.salt.addAmount(amount);
+        }
+    }
+
+    public void addKerosene(int amount) {
+        if (this.kerosene != null) {
+            this.kerosene.addAmount(amount);
+        }
+    }
+
+    public void addGravel(int amount) {
+        if (this.gravel != null) {
+            this.gravel.addAmount(amount);
+        }
     }
 }
