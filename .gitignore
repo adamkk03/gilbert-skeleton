@@ -38,3 +38,11 @@ build/
 ### Mac OS ###
 .DS_Store
 .idea/uiDesigner.xml
+inspect_doc_win32.py
+fill_doc_win32_v4.py
+fill_doc_win32_v3.py
+fill_doc_win32_v2.py
+doc_paragraphs_utf8.txt
+templ_10.zip
+~$mpl_10.doc
+~WRL0001.tmp
