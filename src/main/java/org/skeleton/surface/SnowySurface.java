@@ -39,6 +39,6 @@ public class SnowySurface extends Surface {
 
     @Override
     public void receiveSnow(int amount, Lane l) {
-
+        l.setSnowThickness(l.getSnowThickness() + amount);
     }
 }

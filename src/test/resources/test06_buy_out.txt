@@ -1,0 +1,2 @@
+player1: money=2000
+player1: money=1000

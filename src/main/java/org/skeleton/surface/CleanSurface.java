@@ -25,5 +25,6 @@ public class CleanSurface extends Surface {
     @Override
     public void receiveSnow(int amount, Lane l) {
         l.setSurface(new SnowySurface());
+        l.setSnowThickness(l.getSnowThickness() + amount);
     }
 }

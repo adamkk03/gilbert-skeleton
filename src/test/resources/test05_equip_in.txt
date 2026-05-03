@@ -1,0 +1,4 @@
+equip sp1 sweeper
+stat sp1
+equip sp1 thrower
+stat sp1

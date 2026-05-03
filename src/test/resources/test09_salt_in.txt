@@ -1,0 +1,6 @@
+node n1
+node n2
+road r1 n1 n2 1
+modifier r1 l1 salt
+snow r1 l1 1
+stat r1_l1

@@ -1,0 +1,3 @@
+r1: road
+r1_l1: surface=CleanSurface, isGraveled=false, isSalted=false, snowThickness=0
+r1_l2: surface=CleanSurface, isGraveled=false, isSalted=false, snowThickness=0

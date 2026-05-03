@@ -1,0 +1,4 @@
+set_money player1 2000
+stat player1
+buy player1 head sp1 sweeper
+stat player1

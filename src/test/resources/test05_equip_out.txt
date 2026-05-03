@@ -1,0 +1,2 @@
+sp1: activeHead=Sweeper, position=null, isStuck=false
+sp1: activeHead=Thrower, position=null, isStuck=false

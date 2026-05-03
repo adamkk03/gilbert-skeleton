@@ -118,9 +118,11 @@ public class Main {
                     System.exit(0);
                     break;
                 default:
-                    System.out.println("Ismeretlen parancs: '" + cmd + "'. Írd be, hogy 'help' a parancsok listájához.");
+                    System.out
+                            .println("Ismeretlen parancs: '" + cmd + "'. Írd be, hogy 'help' a parancsok listájához.");
             }
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Hiba a parancs végrehajtása közben: " + line);
             System.out.println("Ellenőrizd a szintaxist! (Írd be: 'help')");
         }
@@ -130,19 +132,25 @@ public class Main {
         System.out.println("\n--- Elérhető parancsok ---");
         System.out.println("Pályaépítés:");
         System.out.println("  node <id>                                     - Létrehoz egy csomópontot.");
-        System.out.println("  road <id> <nodeA> <nodeB> <sávok_száma>       - Létrehoz egy utat a két csomópont között.");
-        System.out.println("  surface <út_id> <sáv_index> <felület_típus>   - Beállítja a sáv felületét (IcySurface, SnowySurface, BlockedSurface, CleanSurface).");
+        System.out
+                .println("  road <id> <nodeA> <nodeB> <sávok_száma>       - Létrehoz egy utat a két csomópont között.");
+        System.out.println(
+                "  surface <út_id> <sáv_index> <felület_típus>   - Beállítja a sáv felületét (IcySurface, SnowySurface, BlockedSurface, CleanSurface).");
         System.out.println("  snow <út_id> <sáv_index> <vastagság>          - Havat ad az adott sávhoz.");
         System.out.println("  modifier <út_id> <sáv_index> <gravel|salt>    - Zúzalékot vagy sót tesz a sávra.");
         System.out.println("\nJátékmenet és tesztelés:");
-        System.out.println("  load <fájlnév>                                - Parancsok beolvasása és futtatása txt fájlból.");
+        System.out.println(
+                "  load <fájlnév>                                - Parancsok beolvasása és futtatása txt fájlból.");
         System.out.println("  move <jármű_id> <sáv_id>                      - Jármű mozgatása a megadott sávra.");
-        System.out.println("  equip <hókotró_id> <fej_típus>                - Kotrófej felszerelése (salter, sweeper, thrower, dragon, icebreaker, graveler).");
-        System.out.println("  weather <mennyiség>                           - Minden sávra esik a megadott mennyiségű hó.");
+        System.out.println(
+                "  equip <hókotró_id> <fej_típus>                - Kotrófej felszerelése (salter, sweeper, thrower, dragon, icebreaker, graveler).");
+        System.out.println(
+                "  weather <mennyiség>                           - Minden sávra esik a megadott mennyiségű hó.");
         System.out.println("  set_money <játékos_id> <összeg>               - Játékos egyenlegének beállítása.");
         System.out.println("  buy <játékos_id> head <hókotró_id> <típus>    - Új fej vásárlása egy adott hókotróra.");
         System.out.println("\nLekérdezés és Rendszer:");
-        System.out.println("  stat <objektum_id>                            - Objektum (jármű, sáv, játékos) állapotának lekérdezése.");
+        System.out.println(
+                "  stat <objektum_id>                            - Objektum (jármű, sáv, játékos) állapotának lekérdezése.");
         System.out.println("  random <on|off>                               - Véletlenszerűség be- vagy kikapcsolása.");
         System.out.println("  help                                          - Ez a súgó.");
         System.out.println("  exit / quit                                   - Kilépés a programból.");
@@ -161,12 +169,12 @@ public class Main {
             Lane l = new Lane();
             l.setRoad(r);
             r.getLanes().add(l);
-            lanes.put("lane_" + i, l);
+            lanes.put(id + "_l" + i, l);
         }
     }
 
     private static void handleSurface(String[] parts) {
-        Lane l = lanes.get("lane_" + parts[2]);
+        Lane l = lanes.get(parts[1] + "_" + parts[2]);
         if (l == null) {
             return;
         }
@@ -188,14 +196,14 @@ public class Main {
     }
 
     private static void handleSnow(String[] parts) {
-        Lane l = lanes.get("lane_" + parts[2]);
+        Lane l = lanes.get(parts[1] + "_" + parts[2]);
         if (l != null) {
             l.addSnow(Integer.parseInt(parts[3]));
         }
     }
 
     private static void handleModifier(String[] parts) {
-        Lane l = lanes.get("lane_" + parts[2]);
+        Lane l = lanes.get(parts[1] + "_" + parts[2]);
         if (l != null) {
             if (parts[3].equalsIgnoreCase("gravel")) {
                 l.setGraveled(true);
@@ -277,7 +285,8 @@ public class Main {
         try (BufferedReader fileReader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = fileReader.readLine()) != null) {
-                // A betöltött parancsokat is végrehajtjuk, mintha a felhasználó gépelte volna be
+                // A betöltött parancsokat is végrehajtjuk, mintha a felhasználó gépelte volna
+                // be
                 System.out.println("Futtatás: " + line);
                 processCommand(line.trim());
             }
@@ -287,19 +296,30 @@ public class Main {
     }
 
     private static void handleStat(String id) {
-        if (vehicles.containsKey(id)) {
+        if (snowplows.containsKey(id)) {
+            Snowplow sp = snowplows.get(id);
+            String laneId = getLaneId(sp.getCurrentLane());
+            System.out.println(
+                    id + ": activeHead=" + sp.getCurrentHead().getClass().getSimpleName() + ", position=" + laneId
+                            + ", isStuck=" + sp.isStuck());
+        } else if (vehicles.containsKey(id)) {
             Vehicle v = vehicles.get(id);
             String laneId = getLaneId(v.getCurrentLane());
             System.out.println(id + ": position=" + laneId + ", isStuck=" + v.isStuck());
         } else if (lanes.containsKey(id)) {
             Lane l = lanes.get(id);
-            String surfaceName = l.getClass().getSimpleName();
-            System.out.println(id + ": surface=" + surfaceName + ", isGraveled=" + l.isGraveled() + ", isSalted=false, snowThickness=" + l.getSnowThickness());
+            String surfaceName = l.getSurface().getClass().getSimpleName();
+            System.out.println(id + ": surface=" + surfaceName + ", isGraveled=" + l.isGraveled()
+                    + ", isSalted=" + l.isSalted() + ", snowThickness=" + l.getSnowThickness());
         } else if (players.containsKey(id)) {
             Player p = players.get(id);
             System.out.println(id + ": money=" + p.getMoney());
-        } else if (snowplows.containsKey(id)) {
-            System.out.println(id + ": activeHead=CurrentHead");
+        } else if (nodes.containsKey(id)) {
+            Node n = nodes.get(id);
+            System.out.println(id + ": node");
+        } else if (roads.containsKey(id)) {
+            Road r = roads.get(id);
+            System.out.println(id + ": road");
         } else {
             System.out.println("Nincs ilyen objektum: " + id);
         }
@@ -314,12 +334,12 @@ public class Main {
         return "null";
     }
 
-    private static void setupMockData() {
-        lanes.put("lane_1", new Lane());
-        lanes.put("lane_2", new Lane());
+    public static void setupMockData() {
+        lanes.put("l1", new Lane());
+        lanes.put("l2", new Lane());
 
         Car car1 = new Car();
-        car1.setCurrentLane(lanes.get("lane_1"));
+        car1.setCurrentLane(lanes.get("l1"));
         vehicles.put("car1", car1);
 
         Snowplow sp1 = new Snowplow();
@@ -329,5 +349,14 @@ public class Main {
         players.put("player1", new Player("Player 1"));
 
         shop.fillInventory();
+    }
+
+    public static void reset() {
+        nodes.clear();
+        roads.clear();
+        lanes.clear();
+        vehicles.clear();
+        players.clear();
+        snowplows.clear();
     }
 }

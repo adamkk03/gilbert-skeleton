@@ -1,0 +1,1 @@
+r1_l1: surface=CleanSurface, isGraveled=false, isSalted=true, snowThickness=0

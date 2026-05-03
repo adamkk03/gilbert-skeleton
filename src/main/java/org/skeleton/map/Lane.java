@@ -30,11 +30,10 @@ public class Lane {
         if (saltAmount > 0) {
             saltAmount--;
         } else {
-            snowThickness += amount;
+            surface.receiveSnow(amount, this);
             if (isGraveled && snowThickness > THICKNESS_LIMIT) {
                 isGraveled = false;
             }
-            surface.receiveSnow(amount, this);
         }
     }
 
@@ -42,6 +41,10 @@ public class Lane {
         for (Vehicle v : vehicles) {
             v.crash();
         }
+    }
+
+    public Surface getSurface() {
+        return surface;
     }
 
     public boolean acceptVehicle(Vehicle v) {
@@ -75,11 +78,19 @@ public class Lane {
     public void setSalted(boolean b) {
         if (b) {
             this.saltAmount = 5; // Példa érték
-            }
+        }
+    }
+
+    public boolean isSalted() {
+        return this.saltAmount > 0;
     }
 
     public int getSnowThickness() {
         return snowThickness;
+    }
+
+    public void setSnowThickness(int amount) {
+        this.snowThickness = amount;
     }
 
     public void incrementTrampleCount() {
