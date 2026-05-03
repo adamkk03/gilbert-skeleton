@@ -43,6 +43,10 @@ public class Lane {
         }
     }
 
+    public Surface getSurface() {
+        return surface;
+    }
+
     public boolean acceptVehicle(Vehicle v) {
         if (surface.handleVehicle(v, this)) {
             vehicles.add(v);
@@ -75,7 +79,12 @@ public class Lane {
         if (b) {
             this.saltAmount = 5; // Példa érték
 
-            }}
+        }
+    }
+
+    public boolean isSalted() {
+        return this.saltAmount > 0;
+    }
 
     public int getSnowThickness() {
         return snowThickness;
