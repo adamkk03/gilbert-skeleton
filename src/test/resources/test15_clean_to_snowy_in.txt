@@ -1,0 +1,6 @@
+node n1
+node n2
+road r1 n1 n2 1
+stat r1_l1
+snow r1 l1 2
+stat r1_l1

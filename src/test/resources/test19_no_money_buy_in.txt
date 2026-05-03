@@ -1,0 +1,5 @@
+set_money player1 0
+equip sp1 sweeper
+buy player1 head sp1 salter
+stat player1
+stat sp1

@@ -1,0 +1,2 @@
+move sp1 l2
+stat sp1

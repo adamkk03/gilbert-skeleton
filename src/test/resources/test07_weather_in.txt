@@ -1,0 +1,3 @@
+weather 10
+stat l1
+stat l2

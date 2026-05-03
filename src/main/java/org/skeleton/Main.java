@@ -122,6 +122,7 @@ public class Main {
                             .println("Ismeretlen parancs: '" + cmd + "'. Írd be, hogy 'help' a parancsok listájához.");
             }
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Hiba a parancs végrehajtása közben: " + line);
             System.out.println("Ellenőrizd a szintaxist! (Írd be: 'help')");
         }
@@ -309,7 +310,8 @@ public class Main {
             Snowplow sp = snowplows.get(id);
             String laneId = getLaneId(sp.getCurrentLane());
             System.out.println(
-                    id + ": activeHead=" + sp.getCurrentHead() + "position=" + laneId + ", isStuck=" + sp.isStuck());
+                    id + ": activeHead=" + sp.getCurrentHead().getClass().getSimpleName() + ", position=" + laneId
+                            + ", isStuck=" + sp.isStuck());
         } else if (vehicles.containsKey(id)) {
             Vehicle v = vehicles.get(id);
             String laneId = getLaneId(v.getCurrentLane());
@@ -322,6 +324,12 @@ public class Main {
         } else if (players.containsKey(id)) {
             Player p = players.get(id);
             System.out.println(id + ": money=" + p.getMoney());
+        } else if (nodes.containsKey(id)) {
+            Node n = nodes.get(id);
+            System.out.println(id + ": node");
+        } else if (roads.containsKey(id)) {
+            Road r = roads.get(id);
+            System.out.println(id + ": road");
         } else {
             System.out.println("Nincs ilyen objektum: " + id);
         }
@@ -336,7 +344,7 @@ public class Main {
         return "null";
     }
 
-    private static void setupMockData() {
+    public static void setupMockData() {
         lanes.put("l1", new Lane());
         lanes.put("l2", new Lane());
 

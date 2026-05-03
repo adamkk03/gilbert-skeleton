@@ -1,0 +1,8 @@
+node n1
+node n2
+road r1 n1 n2 1
+surface r1 l1 IcySurface
+modifier r1 l1 gravel
+move car1 r1_l1
+stat car1
+stat r1_l1

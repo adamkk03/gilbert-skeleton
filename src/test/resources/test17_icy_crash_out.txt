@@ -1,0 +1,2 @@
+car1: position=l1, isStuck=true
+r1_l1: surface=BlockedSurface, isGraveled=false, isSalted=false, snowThickness=0
