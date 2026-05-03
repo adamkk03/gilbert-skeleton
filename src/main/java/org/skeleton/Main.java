@@ -168,12 +168,12 @@ public class Main {
         for (int i = 1; i <= laneCount; i++) {
             Lane l = new Lane();
             r.getLanes().add(l);
-            lanes.put(id + "_lane_" + i, l);
+            lanes.put(id + "_l" + i, l);
         }
     }
 
     private static void handleSurface(String[] parts) {
-        Lane l = lanes.get(parts[1] + "_lane_" + parts[2]);
+        Lane l = lanes.get(parts[1] + "_" + parts[2]);
         if (l == null) {
             return;
         }
@@ -195,14 +195,14 @@ public class Main {
     }
 
     private static void handleSnow(String[] parts) {
-        Lane l = lanes.get(parts[1] + "_lane_" + parts[2]);
+        Lane l = lanes.get(parts[1] + "_" + parts[2]);
         if (l != null) {
             l.addSnow(Integer.parseInt(parts[3]));
         }
     }
 
     private static void handleModifier(String[] parts) {
-        Lane l = lanes.get(parts[1] + "_lane_" + parts[2]);
+        Lane l = lanes.get(parts[1] + "_" + parts[2]);
         if (l != null) {
             if (parts[3].equalsIgnoreCase("gravel")) {
                 l.setGraveled(true);
@@ -266,7 +266,26 @@ public class Main {
         Snowplow sp = snowplows.get(parts[3]);
         if (p != null && sp != null) {
             if (p.spendMoney(1000)) {
-                sp.changeHead(new Thrower());
+                switch (parts[4].toLowerCase()) {
+                    case "salter":
+                        sp.changeHead(new Salter());
+                        break;
+                    case "sweeper":
+                        sp.changeHead(new Sweeper());
+                        break;
+                    case "thrower":
+                        sp.changeHead(new Thrower());
+                        break;
+                    case "dragon":
+                        sp.changeHead(new Dragon());
+                        break;
+                    case "icebreaker":
+                        sp.changeHead(new Icebreaker());
+                        break;
+                    case "graveler":
+                        sp.changeHead(new Graveler());
+                        break;
+                }
             }
         }
     }
@@ -286,7 +305,12 @@ public class Main {
     }
 
     private static void handleStat(String id) {
-        if (vehicles.containsKey(id)) {
+        if (snowplows.containsKey(id)) {
+            Snowplow sp = snowplows.get(id);
+            String laneId = getLaneId(sp.getCurrentLane());
+            System.out.println(
+                    id + ": activeHead=" + sp.getCurrentHead() + "position=" + laneId + ", isStuck=" + sp.isStuck());
+        } else if (vehicles.containsKey(id)) {
             Vehicle v = vehicles.get(id);
             String laneId = getLaneId(v.getCurrentLane());
             System.out.println(id + ": position=" + laneId + ", isStuck=" + v.isStuck());
@@ -298,8 +322,6 @@ public class Main {
         } else if (players.containsKey(id)) {
             Player p = players.get(id);
             System.out.println(id + ": money=" + p.getMoney());
-        } else if (snowplows.containsKey(id)) {
-            System.out.println(id + ": activeHead=CurrentHead");
         } else {
             System.out.println("Nincs ilyen objektum: " + id);
         }
@@ -315,11 +337,11 @@ public class Main {
     }
 
     private static void setupMockData() {
-        lanes.put("lane_1", new Lane());
-        lanes.put("lane_2", new Lane());
+        lanes.put("l1", new Lane());
+        lanes.put("l2", new Lane());
 
         Car car1 = new Car();
-        car1.setCurrentLane(lanes.get("lane_1"));
+        car1.setCurrentLane(lanes.get("l1"));
         vehicles.put("car1", car1);
 
         Snowplow sp1 = new Snowplow();
@@ -327,5 +349,14 @@ public class Main {
         snowplows.put("sp1", sp1);
 
         players.put("player1", new Player("Player 1"));
+    }
+
+    public static void reset() {
+        nodes.clear();
+        roads.clear();
+        lanes.clear();
+        vehicles.clear();
+        players.clear();
+        snowplows.clear();
     }
 }

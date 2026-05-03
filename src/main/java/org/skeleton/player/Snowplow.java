@@ -18,6 +18,10 @@ public class Snowplow extends Vehicle {
         this.inventory = new Inventory();
     }
 
+    public PlowHead getCurrentHead() {
+        return activeHead;
+    }
+
     public void changeHead(PlowHead head) {
         if (this.activeHead != null) {
             inventory.addHead(this.activeHead);
