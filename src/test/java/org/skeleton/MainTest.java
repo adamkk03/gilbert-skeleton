@@ -140,10 +140,10 @@ public class MainTest {
         Snowplow sp = new Snowplow();
         Main.snowplows.put("sp1", sp);
 
-        Main.processCommand("buy p1 head sp1 sweeper");
+        Main.processCommand("buy p1 head sp1 thrower");
 
-        assertEquals(1000, p.getMoney(), "A pénznek csökkennie kellett volna 1000-rel.");
-        assertTrue(sp.getCurrentHead().toString().toLowerCase().contains("sweeper"));
+        assertEquals(500, p.getMoney(), "A pénznek csökkennie kellett volna 1500-al.");
+        assertTrue(sp.getCurrentHead().toString().toLowerCase().contains("thrower"));
     }
 
     @Test
@@ -269,6 +269,7 @@ public class MainTest {
         Main.processCommand("node n2");
         Main.processCommand("road r1 n1 n2 1");
         Main.processCommand("snow r1 l1 1");
+        Main.processCommand("random off");
 
         Lane l = Main.lanes.get("r1_l1");
         assertEquals(org.skeleton.surface.SnowySurface.class, l.getSurface().getClass());

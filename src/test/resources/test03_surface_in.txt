@@ -2,6 +2,6 @@ node n1
 node n2
 road r1 n1 n2 1
 surface r1 l1 IcySurface
-stat r1 l1
+stat r1_l1
 surface r1 l1 SnowySurface
-stat r1 l1
+stat r1_l1

@@ -1,3 +1,4 @@
+random off
 node n1
 node n2
 road r1 n1 n2 1

@@ -13,5 +13,9 @@ public abstract class Surface {
 
     public abstract boolean isAccessible();
 
+    public void meltIce(Lane l) {}
+
+    public void reactToSalt(Lane l) {}
+
     public abstract void receiveSnow(int amount, Lane l);
 }

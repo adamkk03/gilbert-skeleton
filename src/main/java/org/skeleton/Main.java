@@ -27,14 +27,14 @@ import org.skeleton.vehicle.Vehicle;
 public class Main {
 
     // Globális regiszterek az objektumok azonosítók kollekciójához
-    private static HashMap<String, Node> nodes = new HashMap<>();
-    private static HashMap<String, Road> roads = new HashMap<>();
-    private static HashMap<String, Lane> lanes = new HashMap<>();
-    private static HashMap<String, Vehicle> vehicles = new HashMap<>();
-    private static HashMap<String, Player> players = new HashMap<>();
-    private static HashMap<String, Snowplow> snowplows = new HashMap<>();
-    private static Shop shop = new Shop();
-    private static boolean isRandomOn = true;
+    static HashMap<String, Node> nodes = new HashMap<>();
+    static HashMap<String, Road> roads = new HashMap<>();
+    static HashMap<String, Lane> lanes = new HashMap<>();
+    static HashMap<String, Vehicle> vehicles = new HashMap<>();
+    static HashMap<String, Player> players = new HashMap<>();
+    static HashMap<String, Snowplow> snowplows = new HashMap<>();
+    static Shop shop = new Shop();
+    public static boolean isRandomOn = true;
 
     public static void main(String[] args) {
         System.out.println("=================================================");
@@ -60,7 +60,7 @@ public class Main {
         }
     }
 
-    private static void processCommand(String line) {
+    static void processCommand(String line) {
         if (line.isEmpty() || line.startsWith("#")) {
             return; // Üres sorok és kommentek átugrása
         }

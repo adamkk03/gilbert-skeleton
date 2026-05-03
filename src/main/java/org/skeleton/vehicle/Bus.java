@@ -15,6 +15,9 @@ public class Bus extends Vehicle {
     public void playTurn(Lane destination) {
         if (stuckCounter > 0) {
             stuckCounter--;
+            if (stuckCounter == 0) {
+                this.free();
+            }
             return;
         }
         if (this.move(destination)) {

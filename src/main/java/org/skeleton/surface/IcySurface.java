@@ -18,6 +18,14 @@ public class IcySurface extends Surface {
     }
 
     @Override
+    public void reactToSalt(Lane l) {
+        l.setSnowThickness(l.getSnowThickness() - 1);
+        if (l.getSnowThickness() <= 0) {
+            l.setSurface(new CleanSurface());
+        }
+    }
+
+    @Override
     public boolean clean(PlowHead head, Inventory inv, Lane l) {
         if (head != null) {
             head.operate(l, inv);
@@ -34,5 +42,10 @@ public class IcySurface extends Surface {
     @Override
     public void receiveSnow(int amount, Lane l) {
         l.setSnowThickness(l.getSnowThickness() + amount);
+    }
+
+    @Override
+    public void meltIce(Lane l) {
+        l.setSurface(new CleanSurface());
     }
 }

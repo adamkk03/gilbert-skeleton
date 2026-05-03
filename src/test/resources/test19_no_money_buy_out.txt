@@ -1,2 +1,3 @@
+Sikertelen vásárlás (nincs elég pénz, vagy nem létező termék).
 player1: money=0
 sp1: activeHead=Sweeper, position=null, isStuck=false

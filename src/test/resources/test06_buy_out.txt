@@ -1,2 +1,3 @@
 player1: money=2000
+sweeper sikeresen megvásárolva és a raktárba helyezve!
 player1: money=1000

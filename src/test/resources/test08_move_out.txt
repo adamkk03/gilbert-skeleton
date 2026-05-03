@@ -1,1 +1,1 @@
-sp1: activeHead=SnowplowHead, position=l2, isStuck=false
+sp1: activeHead=Thrower, position=l2, isStuck=false

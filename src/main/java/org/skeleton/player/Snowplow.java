@@ -5,6 +5,7 @@ import org.skeleton.map.Lane;
 import org.skeleton.map.Node;
 import org.skeleton.plowhead.PlowHead;
 import org.skeleton.plowhead.Sweeper;
+import org.skeleton.plowhead.Thrower;
 import org.skeleton.resource.Resource;
 import org.skeleton.vehicle.Vehicle;
 
@@ -14,11 +15,12 @@ public class Snowplow extends Vehicle {
     private Inventory inventory;
     private int remainingMoves;
     private final int MAX_MOVES = 3;
+    private Player owner;
 
     public Snowplow() {
         this.inventory = new Inventory();
         this.remainingMoves = MAX_MOVES;
-        this.activeHead = new Sweeper();
+        this.activeHead = new Thrower();
     }
 
     public PlowHead getCurrentHead() {
@@ -36,7 +38,10 @@ public class Snowplow extends Vehicle {
     public boolean move(Node targetNode, Lane viaLane) {
         if (remainingMoves > 0) {
             remainingMoves--;
-            viaLane.clean(activeHead, inventory);
+            boolean wasCleaned = viaLane.clean(activeHead, inventory);
+            if (wasCleaned && owner != null) {
+                owner.addMoney(100);
+            }
             if (this.getCurrentLane() != null) {
                 this.getCurrentLane().removeVehicle(this);
             }
@@ -64,5 +69,9 @@ public class Snowplow extends Vehicle {
 
     public void resetMoves() {
         this.remainingMoves = MAX_MOVES;
+    }
+
+    public void setOwner(Player p) {
+        this.owner = p;
     }
 }

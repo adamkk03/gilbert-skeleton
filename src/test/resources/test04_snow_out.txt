@@ -1,2 +1,2 @@
 r1_l1: surface=SnowySurface, isGraveled=false, isSalted=false, snowThickness=10
-r1_l1: surface=SnowySurface, isGraveled=false, isSalted=false, snowThickness=5
+r1_l1: surface=SnowySurface, isGraveled=false, isSalted=false, snowThickness=15

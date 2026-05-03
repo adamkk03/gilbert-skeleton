@@ -5,6 +5,8 @@ import org.skeleton.map.Lane;
 import org.skeleton.plowhead.PlowHead;
 import org.skeleton.vehicle.Vehicle;
 
+import static org.skeleton.Main.isRandomOn;
+
 public class SnowySurface extends Surface {
 
     private final int THICKNESS_LIMIT = 5;
@@ -18,9 +20,24 @@ public class SnowySurface extends Surface {
         }
         l.incrementTrampleCount();
         if (l.getTrampleCount() >= CRITICAL_TRAMPLE_LIMIT) {
-            l.setSurface(new IcySurface());
+            boolean shouldFreeze = true;
+            if (isRandomOn) {
+                shouldFreeze = Math.random() > 0.5;
+            }
+
+            if (shouldFreeze) {
+                l.setSurface(new IcySurface());
+            }
         }
         return true;
+    }
+
+    @Override
+    public void reactToSalt(Lane l) {
+        l.setSnowThickness(l.getSnowThickness() - 1);
+        if (l.getSnowThickness() <= 0) {
+            l.setSurface(new CleanSurface());
+        }
     }
 
     @Override

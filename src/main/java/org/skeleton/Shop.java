@@ -25,7 +25,6 @@ public class Shop {
     public boolean sellEquipment(Player p, String itemType) {
         Integer price = prices.get(itemType);
         if (price != null && p.spendMoney(price)) {
-            p.addEquipment(itemType);
             return true;
         }
         return false;
@@ -33,9 +32,14 @@ public class Shop {
 
     public void fillInventory() {
         prices.put("Snowplow", 5000);
-        prices.put("Thrower", 1000);
-        prices.put("Dragon", 2000);
-        prices.put("Salter", 800);
-        prices.put("Graveler", 800);
+        prices.put("Sweeper", 1000);
+        prices.put("Thrower", 1500);
+        prices.put("Icebreaker", 2000);
+        prices.put("Salter", 2500);
+        prices.put("Graveler", 2500);
+        prices.put("Dragon", 3000);
+        prices.put("Salt", 50);
+        prices.put("Biokerosene", 100);
+        prices.put("Gravel", 50);
     }
 }

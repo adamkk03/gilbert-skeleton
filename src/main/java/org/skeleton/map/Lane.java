@@ -27,7 +27,8 @@ public class Lane {
     }
 
     public void addSnow(int amount) {
-        if (saltAmount > 0) {
+        if (isSalted()) {
+            surface.reactToSalt(this);
             saltAmount--;
         } else {
             surface.receiveSnow(amount, this);

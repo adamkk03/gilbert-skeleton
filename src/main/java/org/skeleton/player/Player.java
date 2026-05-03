@@ -33,6 +33,7 @@ public class Player {
 
     public void addSnowplow(Snowplow sp) {
         snowplows.add(sp);
+        sp.setOwner(this);
     }
 
     public boolean spendMoney(int amount) {
