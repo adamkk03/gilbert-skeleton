@@ -29,11 +29,10 @@ public class Lane {
         if (saltAmount > 0) {
             saltAmount--;
         } else {
-            snowThickness += amount;
+            surface.receiveSnow(amount, this);
             if (isGraveled && snowThickness > THICKNESS_LIMIT) {
                 isGraveled = false;
             }
-            surface.receiveSnow(amount, this);
         }
     }
 
@@ -88,6 +87,10 @@ public class Lane {
 
     public int getSnowThickness() {
         return snowThickness;
+    }
+
+    public void setSnowThickness(int amount) {
+        this.snowThickness = amount;
     }
 
     public void incrementTrampleCount() {
