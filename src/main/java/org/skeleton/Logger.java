@@ -6,7 +6,9 @@ public class Logger {
 
     private static String getIndent() {
         StringBuilder sb = new StringBuilder();
-        sb.repeat("\t", Math.max(0, depth));
+        for (int i = 0; i < depth; i++) {
+            sb.append("\t");
+        }
         return sb.toString();
     }
 
