@@ -24,27 +24,44 @@ import org.skeleton.surface.SnowySurface;
 import org.skeleton.vehicle.Car;
 import org.skeleton.vehicle.Vehicle;
 
+/**
+ * Entry point for the Snowplow Game Prototype.
+ * Provides a command-line interface for testing game components and scenarios.
+ */
 public class Main {
 
-    // Globális regiszterek az objektumok azonosítók kollekciójához
+    /** Register for nodes by ID. */
     static HashMap<String, Node> nodes = new HashMap<>();
+    /** Register for roads by ID. */
     static HashMap<String, Road> roads = new HashMap<>();
+    /** Register for lanes by ID. */
     static HashMap<String, Lane> lanes = new HashMap<>();
+    /** Register for vehicles by ID. */
     static HashMap<String, Vehicle> vehicles = new HashMap<>();
+    /** Register for players by ID. */
     static HashMap<String, Player> players = new HashMap<>();
+    /** Register for snowplows by ID. */
     static HashMap<String, Snowplow> snowplows = new HashMap<>();
+    /** Global shop instance. */
     static Shop shop = new Shop();
+    /** Flag to enable or disable randomness in the prototype. */
     public static boolean isRandomOn = true;
 
+    /**
+     * Main entry point of the application.
+     * Initializes the system and starts the command loop.
+     * 
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         System.out.println("=================================================");
         System.out.println("      Snowplow Game Prototípus - Tesztkörnyezet  ");
         System.out.println("=================================================");
-        System.out.println("A rendszer inicializálása megtörtént. A tesztadatok betöltve.");
-        System.out.println("Írd be, hogy 'help' az elérhető parancsok listájához.");
+        System.out.println("Rendszer inicializálva. Teszt adatok betöltve.");
+        System.out.println("Írd be 'help' a parancsok listájához.");
         System.out.println("=================================================\n");
 
-        // Teszteléshez néhány alap objektum inicializálása
+        // Initialization of some basic objects for testing
         setupMockData();
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -53,16 +70,21 @@ public class Main {
             System.out.print("> ");
             while ((line = reader.readLine()) != null) {
                 processCommand(line.trim());
-                System.out.print("> "); // Prompt jelzés a következő parancshoz
+                System.out.print("> "); // Prompt for next command
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Processes a single command line.
+     * 
+     * @param line The command line to process.
+     */
     static void processCommand(String line) {
         if (line.isEmpty() || line.startsWith("#")) {
-            return; // Üres sorok és kommentek átugrása
+            return; // Skip empty lines and comments
         }
         String[] parts = line.split("\\s+");
         String cmd = parts[0].toLowerCase();
@@ -128,6 +150,9 @@ public class Main {
         }
     }
 
+    /**
+     * Displays the help message with available commands.
+     */
     private static void handleHelp() {
         System.out.println("\n--- Elérhető parancsok ---");
         System.out.println("Pályaépítés:");
@@ -157,6 +182,11 @@ public class Main {
         System.out.println("--------------------------\n");
     }
 
+    /**
+     * Handles the 'road' command to create a new road and its lanes.
+     * 
+     * @param parts Command arguments.
+     */
     private static void handleRoad(String[] parts) {
         String id = parts[1];
         Node nA = nodes.get(parts[2]);
@@ -173,6 +203,11 @@ public class Main {
         }
     }
 
+    /**
+     * Handles the 'surface' command to set the surface type of a lane.
+     * 
+     * @param parts Command arguments.
+     */
     private static void handleSurface(String[] parts) {
         Lane l = lanes.get(parts[1] + "_" + parts[2]);
         if (l == null) {
@@ -195,6 +230,11 @@ public class Main {
         }
     }
 
+    /**
+     * Handles the 'snow' command to add snow to a lane.
+     * 
+     * @param parts Command arguments.
+     */
     private static void handleSnow(String[] parts) {
         Lane l = lanes.get(parts[1] + "_" + parts[2]);
         if (l != null) {
@@ -202,6 +242,11 @@ public class Main {
         }
     }
 
+    /**
+     * Handles the 'modifier' command to add gravel or salt to a lane.
+     * 
+     * @param parts Command arguments.
+     */
     private static void handleModifier(String[] parts) {
         Lane l = lanes.get(parts[1] + "_" + parts[2]);
         if (l != null) {
@@ -214,6 +259,11 @@ public class Main {
         }
     }
 
+    /**
+     * Handles the 'move' command to move a vehicle to a destination lane.
+     * 
+     * @param parts Command arguments.
+     */
     private static void handleMove(String[] parts) {
         Vehicle v = vehicles.get(parts[1]);
         Lane dest = lanes.get(parts[2]);
@@ -222,6 +272,11 @@ public class Main {
         }
     }
 
+    /**
+     * Handles the 'equip' command to equip a plow head on a snowplow.
+     * 
+     * @param parts Command arguments.
+     */
     private static void handleEquip(String[] parts) {
         Snowplow sp = snowplows.get(parts[1]);
         if (sp != null) {
@@ -248,6 +303,11 @@ public class Main {
         }
     }
 
+    /**
+     * Handles the 'weather' command to add snow to all lanes.
+     * 
+     * @param parts Command arguments.
+     */
     private static void handleWeather(String[] parts) {
         int amount = Integer.parseInt(parts[1]);
         for (Lane l : lanes.values()) {
@@ -255,6 +315,11 @@ public class Main {
         }
     }
 
+    /**
+     * Handles the 'set_money' command to set a player's balance.
+     * 
+     * @param parts Command arguments.
+     */
     private static void handleSetMoney(String[] parts) {
         Player p = players.get(parts[1]);
         if (p != null) {
@@ -262,6 +327,11 @@ public class Main {
         }
     }
 
+    /**
+     * Handles the 'buy' command for players to purchase equipment.
+     * 
+     * @param parts Command arguments.
+     */
     private static void handleBuy(String[] parts) {
         Player p = players.get(parts[1]);
         Snowplow sp = snowplows.get(parts[3]);
@@ -281,6 +351,11 @@ public class Main {
         }
     }
 
+    /**
+     * Handles the 'load' command to read and execute commands from a file.
+     * 
+     * @param filename Path to the command file.
+     */
     private static void handleLoad(String filename) {
         try (BufferedReader fileReader = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -295,6 +370,11 @@ public class Main {
         }
     }
 
+    /**
+     * Handles the 'stat' command to query the status of an object.
+     * 
+     * @param id The ID of the object to query.
+     */
     private static void handleStat(String id) {
         if (snowplows.containsKey(id)) {
             Snowplow sp = snowplows.get(id);
@@ -321,10 +401,16 @@ public class Main {
             Road r = roads.get(id);
             System.out.println(id + ": road");
         } else {
-            System.out.println("Nincs ilyen objektum: " + id);
+            System.out.println("No such object: " + id);
         }
     }
 
+    /**
+     * Resolves the ID of a lane object.
+     * 
+     * @param l The lane object.
+     * @return The ID of the lane, or "null" if not found.
+     */
     private static String getLaneId(Lane l) {
         for (java.util.Map.Entry<String, Lane> entry : lanes.entrySet()) {
             if (entry.getValue().equals(l)) {
@@ -334,6 +420,9 @@ public class Main {
         return "null";
     }
 
+    /**
+     * Sets up mock data for initial testing.
+     */
     public static void setupMockData() {
         lanes.put("l1", new Lane());
         lanes.put("l2", new Lane());
@@ -351,6 +440,9 @@ public class Main {
         shop.fillInventory();
     }
 
+    /**
+     * Resets the prototype state by clearing all object registers.
+     */
     public static void reset() {
         nodes.clear();
         roads.clear();
